@@ -60,14 +60,10 @@ const UserDetails = new mongoose.Schema({
     type: String,
     require: true,
   },
-  tokens: [
-    {
-      token: {
-        type: String,
-        require: true,
-      },
-    },
-  ],
+  tokens: {
+    type: String,
+    require: true,
+  },
 });
 
 //Creating a Model of a schema into a Database
@@ -120,41 +116,17 @@ app.post("/login", async (req, res) => {
           .update(req.body.password)
           .digest("hex");
         if (req.body.password === result.password) {
-          //Delete the existing token of given result body
-
-          // let id = result.tokens[0]._id;
-          // let id = result._id;
-          // console.log(id);
-
-          if (result.tokens[0]) {
-            USERDETAILS.findOneAndUpdate(
-              { name: result.name },
-              { username: AuthToken },
-              { upsert: true },
-              (err, res) => {
-                if (err) {
-                  console.log("Error happens");
-                } else {
-                  console.log(res);
-                }
-              }
-            );
-            console.log("yes we have a token in database");
-          } else {
-            console.log(
-              "No we dont have a token in database Create a new one "
-            );
-          }
-
           //Creating a JWT Token and storing into Database
 
           AuthToken = jwt.sign({ _id: result._id }, jwttokenKey);
-          result.tokens = result.tokens.concat({ token: AuthToken });
+          result.tokens = AuthToken;
 
           result.save((err) => {
             if (err) {
               console.log("Error: Unable to save");
             } else {
+              console.log("AuthToken", AuthToken);
+
               console.log("Saved Successfully");
             }
           });
