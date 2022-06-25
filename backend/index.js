@@ -133,6 +133,7 @@ app.post("/login", async (req, res) => {
           console.log("User Logged In");
 
           //Creating cookies at login
+          res.cookie("username", result.username,{httpOnly:true});
           return res
             .cookie("access_token", AuthToken, {
               httpOnly: true,
