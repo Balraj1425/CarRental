@@ -1,0 +1,35 @@
+.card {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 8px;
+}
+
+.center-align-text {
+    text-align: center;
+}
+
+.seat-div {
+    display: flex;
+    flex-direction: column;
+    width: 5.5rem;
+    height: 5.5rem;
+    border: 1px solid #ececec;
+    background-color: #ececec;
+    color: black;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.car-card {
+    border-radius: 12px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+.img-wrapper{
+    width: 200px;
+    height: 130px;
+    padding: .5rem;
+}
