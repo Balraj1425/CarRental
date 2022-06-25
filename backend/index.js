@@ -70,6 +70,31 @@ const UserDetails = new mongoose.Schema({
 
 const USERDETAILS = connection.model("usersdetail", UserDetails);
 
+//middleware to validate user token
+const authorization = (req, res, next) => {
+  const token = req.cookies.access_token;
+  const username = req.cookies.username;
+  if (!token) {
+    return res.sendStatus(403);
+  }
+  try {
+    const data = jwt.verify(token, jwttokenKey);
+    USERDETAILS.findOne({ tokens: token }, (err, result) => {
+      if(result) {
+        console.log(result);
+        if(result.username === username) {
+          return next();
+        }
+        else {
+          res.send("invalid token")
+        }
+      }
+    })
+  } catch {
+    return res.sendStatus(403);
+  }
+};
+
 //Creating Routes/APi
 
 app.post("/register", (req, res) => {
@@ -156,16 +181,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", async (req, res) => {
+app.get("/home", authorization, async (req, res) => {
   try {
-    const tokenCookies = req.cookies.access_token;
-    if (!tokenCookies) {
-      console.log("Token not found");
-      return res.send("Token not found");
-    } else {
-      //check token here
-      return res.send("Token  found");
-    }
+    return res.send("Token found");
   } catch (error) {
     console.log("Error Occured");
     res.status(404).send("Failed to Load page");
