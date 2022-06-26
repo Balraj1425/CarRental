@@ -68,7 +68,10 @@ const SearchCar = () => {
         />
         <button onClick={searchCarHandler}>Find Cars</button>
       </div>
-      <SearchResult resultCarData={resultCarData} />
+      <SearchResult
+        resultCarData={resultCarData}
+        searchCarData={searchCarData}
+      />
     </Fragment>
   );
 };

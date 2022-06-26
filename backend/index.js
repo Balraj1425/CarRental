@@ -93,20 +93,20 @@ const CarDetails = new mongoose.Schema({
   },
   carId: {
     type: Number,
-    require: true
+    require: true,
   },
   carOwnerID: {
     type: Number,
-    require: true
+    require: true,
   },
   status: {
     type: Boolean,
-    require: true
+    require: true,
   },
   carLocation: {
     type: String,
-    require: true
-  }
+    require: true,
+  },
 });
 
 //Creating a Model of a schema into a Database
@@ -124,16 +124,15 @@ const authorization = (req, res, next) => {
   try {
     const data = jwt.verify(token, jwttokenKey);
     USERDETAILS.findOne({ tokens: token }, (err, result) => {
-      if(result) {
+      if (result) {
         console.log(result);
-        if(result.username === username) {
+        if (result.username === username) {
           return next();
-        }
-        else {
-          res.send("invalid token")
+        } else {
+          res.send("invalid token");
         }
       }
-    })
+    });
   } catch {
     return res.sendStatus(403);
   }
@@ -202,7 +201,7 @@ app.post("/login", async (req, res) => {
           console.log("User Logged In");
 
           //Creating cookies at login
-          res.cookie("username", result.username,{httpOnly:true});
+          res.cookie("username", result.username, { httpOnly: true });
           return res
             .cookie("access_token", AuthToken, {
               httpOnly: true,
@@ -253,18 +252,44 @@ app.post("/aboutus", async (req, res) => {
 
 app.post("/searchCars", async (req, res) => {
   try {
-    const {pickuplocation, datefrom, dateto} = req.body;
-    CARDETAILS.find({$and:[{carLocation: pickuplocation},{status:true}]}, (err, result) => {
-      console.log("inside try")
-      if(result){
+    const { pickuplocation, datefrom, dateto } = req.body;
+    const arr = [{ carLocation: pickuplocation }, { status: true }];
+    CARDETAILS.find({ $and: arr }, (err, result) => {
+      console.log("inside try");
+      if (result) {
         res.send(result);
       }
-    })
-  } catch (error) {
-    
-  }
+    });
+  } catch (error) {}
+});
 
-})
+app.post("/filterdata", async (req, res) => {
+  try {
+    let queryParam = [{ status: true }];
+    if (req.body.seats && req.body.seats != "") {
+      queryParam.push({ noOfSeats: req.body.seats });
+    }
+    if (req.body.transmission && req.body.transmission != "") {
+      queryParam.push({ transmissionType: req.body.transmission });
+    }
+    if (req.body.cartypes && req.body.cartypes != "") {
+      queryParam.push({ carType: req.body.cartypes });
+    }
+    if (req.body.pickuplocation && req.body.pickuplocation != "") {
+      queryParam.push({ carLocation: req.body.pickuplocation });
+    }
+
+    CARDETAILS.find({ $and: queryParam }, (err, result) => {
+      console.log("filtered data");
+      if (result) {
+        res.send(result);
+      }
+    });
+    console.log(req.body);
+  } catch (error) {
+    console.log("Error Occured");
+  }
+});
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

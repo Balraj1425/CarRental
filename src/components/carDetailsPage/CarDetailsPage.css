@@ -1,0 +1,8 @@
+.connector {
+  width: 2px;
+  height: 34px;
+  background-image: linear-gradient(to bottom, #ec4909, #e48a73);
+  position: absolute;
+  top: 46px;
+  left: 27px;
+}
