@@ -7,6 +7,7 @@ import Login from "./components/login/Login";
 import Aboutus from "./components/aboutus/Aboutus";
 import Contactus from "./components/contactus/Contactus";
 import Home from "./components/home/Home";
+import SearchResult from "./components/search/searchResult";
 
 // import SearchResult from "./components/search/searchResult";
 
@@ -22,11 +23,9 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/aboutus" element={<Aboutus />}></Route>
           <Route path="/contactus" element={<Contactus />}></Route>
+          <Route path="/searchresult" element={<SearchResult />}></Route>
         </Routes>
       </Router>
-      {/* <Navbar />
-      
-      <SearchResult /> */}
     </>
   );
 }
