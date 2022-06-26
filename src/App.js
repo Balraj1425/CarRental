@@ -3,7 +3,10 @@ import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
-import SearchCar from "./components/search/searchCar";
+
+import Aboutus from "./components/aboutus/Aboutus";
+import Contactus from "./components/contactus/Contactus";
+import Home from "./components/home/Home";
 
 // import SearchResult from "./components/search/searchResult";
 
@@ -13,9 +16,12 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route exact path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/home" element={<SearchCar />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/aboutus" element={<Aboutus />}></Route>
+          <Route path="/contactus" element={<Contactus />}></Route>
         </Routes>
       </Router>
       {/* <Navbar />
