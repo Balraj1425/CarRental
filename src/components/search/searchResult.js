@@ -9,6 +9,9 @@ import axios from "axios";
 const SearchResult = (props) => {
   console.log(props);
   const searchResults = props.resultCarData;
+  console.log("final data")
+  console.log(searchResults)
+
   const searchCarData = props.searchCarData;
 
   const [filterData, setFilterData] = useState({
@@ -24,7 +27,7 @@ const SearchResult = (props) => {
 
     console.log(filterData);
     console.log(searchCarData);
-
+    props.onFilterData([]);
     // console.log(filterData);
     axios
       .post("http://localhost:3001/filterdata", filterParameters)
@@ -32,7 +35,7 @@ const SearchResult = (props) => {
         console.log("result of filterd data");
 
         console.log(res);
-        props.resultCarData = res.data;
+        props.onFilterData(res.data);
       });
   };
 
@@ -87,6 +90,7 @@ const SearchResult = (props) => {
               key={item.carId}
               carName={item.carName}
               carImage={item.carImage}
+              seats={item.noOfSeats}
               transmissionType={item.transmissionType}
               fuelType={item.fuelType}
               price={item.price}

@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchResult from "./searchResult";
 
 const SearchCar = () => {
+  const [showResult, setShowResult] = useState(false);
   const [searchCarData, setSearchCar] = useState({
     pickuplocation: "",
     datefrom: "",
@@ -22,7 +23,7 @@ const SearchCar = () => {
   const [resultCarData, setResultCarData] = useState([]);
   const searchCarHandler = (e) => {
     e.preventDefault();
-    console.log(searchCarData);
+    setShowResult(true)
     axios
       .post("http://localhost:3001/searchCars", searchCarData)
       .then((res) => {
@@ -31,47 +32,59 @@ const SearchCar = () => {
         setResultCarData(res.data);
       });
   };
+  const saveFilterDataHandler=(data)=>{
+    console.log("final data in search car")
+    console.log(data)
+    setResultCarData(data);
+  }
+  
   return (
     <Fragment>
-      <div className="search-car">
-        <label htmlFor="searchText" class="form-label">
-          Select Destination
-        </label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Pick a city"
-          id="searchText"
-          value={searchCarData.pickuplocation}
-          name="pickuplocation"
-          onChange={handelChange}
+      
+      {!showResult && 
+        <div className="search-car">
+          <label htmlFor="searchText" class="form-label">
+            Select Destination
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pick a city"
+            id="searchText"
+            value={searchCarData.pickuplocation}
+            name="pickuplocation"
+            onChange={handelChange}
+          />
+          <label htmlFor="searchText" class="form-label">
+            From:
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            value={searchCarData.datefrom}
+            name="datefrom"
+            onChange={handelChange}
+          />
+          <label htmlFor="searchText" class="form-label">
+            To:
+          </label>
+          <input
+            type="date"
+            class="form-control"
+            value={searchCarData.dateto}
+            name="dateto"
+            onChange={handelChange}
+          />
+          <button onClick={searchCarHandler}>Find Cars</button>
+        </div>
+      }
+      {showResult && 
+        <SearchResult
+          resultCarData={resultCarData}
+          searchCarData={searchCarData}
+          onFilterData={saveFilterDataHandler}
         />
-        <label htmlFor="searchText" class="form-label">
-          From:
-        </label>
-        <input
-          type="date"
-          class="form-control"
-          value={searchCarData.datefrom}
-          name="datefrom"
-          onChange={handelChange}
-        />
-        <label htmlFor="searchText" class="form-label">
-          To:
-        </label>
-        <input
-          type="date"
-          class="form-control"
-          value={searchCarData.dateto}
-          name="dateto"
-          onChange={handelChange}
-        />
-        <button onClick={searchCarHandler}>Find Cars</button>
-      </div>
-      <SearchResult
-        resultCarData={resultCarData}
-        searchCarData={searchCarData}
-      />
+      }
     </Fragment>
   );
 };

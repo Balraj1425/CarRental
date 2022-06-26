@@ -107,6 +107,10 @@ const CarDetails = new mongoose.Schema({
     type: String,
     require: true,
   },
+  carType: {
+    type: String,
+    require:true
+  }
 });
 
 //Creating a Model of a schema into a Database
@@ -278,9 +282,11 @@ app.post("/filterdata", async (req, res) => {
     if (req.body.pickuplocation && req.body.pickuplocation != "") {
       queryParam.push({ carLocation: req.body.pickuplocation });
     }
-
+    console.log("query params")
+    console.log(queryParam)
     CARDETAILS.find({ $and: queryParam }, (err, result) => {
       console.log("filtered data");
+      console.log(result)
       if (result) {
         res.send(result);
       }

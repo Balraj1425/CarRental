@@ -12,7 +12,7 @@ const CarCard = (props) => {
         <div style={{ width: "65%" }}>
           <strong>{props.carName}</strong>
           <p className="car-transmission-fuel-seat">
-            {props.transmissionType} . {props.fuelType} . 5
+            {props.transmissionType} . {props.fuelType} . {props.seats}
           </p>
           <p className="car-rating-kmdriven">4 star, 12k kms driven</p>
         </div>
