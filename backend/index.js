@@ -66,9 +66,53 @@ const UserDetails = new mongoose.Schema({
   },
 });
 
+const CarDetails = new mongoose.Schema({
+  carName: {
+    type: String,
+    require: true,
+  },
+  carImage: {
+    type: String,
+    require: true,
+  },
+  noOfSeats: {
+    type: Number,
+    require: true,
+  },
+  transmissionType: {
+    type: String,
+    require: true,
+  },
+  fuelType: {
+    type: String,
+    require: true,
+  },
+  price: {
+    type: String,
+    require: true,
+  },
+  carId: {
+    type: Number,
+    require: true
+  },
+  carOwnerID: {
+    type: Number,
+    require: true
+  },
+  status: {
+    type: Boolean,
+    require: true
+  },
+  carLocation: {
+    type: String,
+    require: true
+  }
+});
+
 //Creating a Model of a schema into a Database
 
 const USERDETAILS = connection.model("usersdetail", UserDetails);
+const CARDETAILS = connection.model("cardetails", CarDetails);
 
 //middleware to validate user token
 const authorization = (req, res, next) => {
@@ -206,6 +250,21 @@ app.post("/aboutus", async (req, res) => {
     res.status(404).send("Failed to Load page");
   }
 });
+
+app.post("/searchCars", async (req, res) => {
+  try {
+    const {pickuplocation, datefrom, dateto} = req.body;
+    CARDETAILS.find({$and:[{carLocation: pickuplocation},{status:true}]}, (err, result) => {
+      console.log("inside try")
+      if(result){
+        res.send(result);
+      }
+    })
+  } catch (error) {
+    
+  }
+
+})
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

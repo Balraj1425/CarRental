@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "../login/Login.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -19,7 +19,7 @@ export default function Login() {
   const handelLoginClick = (e) => {
     e.preventDefault();
     axios.post("http://localhost:3001/login", login).then((res) => {
-      // navigate("/home");
+      navigate("/home");
       alert(res.data.message);
     });
   };

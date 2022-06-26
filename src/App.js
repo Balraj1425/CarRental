@@ -8,6 +8,7 @@ import Aboutus from "./components/aboutus/Aboutus";
 import Contactus from "./components/contactus/Contactus";
 import Home from "./components/home/Home";
 import SearchResult from "./components/search/searchResult";
+import SearchCar from "./components/search/searchCar";
 
 // import SearchResult from "./components/search/searchResult";
 
@@ -20,7 +21,7 @@ function App() {
           <Route exact path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/home" element={<SearchCar />}></Route>
           <Route path="/aboutus" element={<Aboutus />}></Route>
           <Route path="/contactus" element={<Contactus />}></Route>
           <Route path="/searchresult" element={<SearchResult />}></Route>

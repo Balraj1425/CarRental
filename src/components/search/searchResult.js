@@ -4,57 +4,59 @@ import "./searchResult.css"
 
 const SearchResult = props => {
 
-    const searchResults = [
-        {
-            "carName": "Hyundai Creta",
-            "carImage": "/images/creta.jpg",
-            "transmissionType": "Manual",
-            "fuelType": "Petrol",
-            "noOfSeats": 5,
-            "price": "Rs 500/hr",
-            "carId":1
-        },
-        {
-            "carName": "Suzuki Brezza",
-            "carImage": "/images/creta.jpg",
-            "transmissionType": "Manual",
-            "fuelType": "Petrol",
-            "noOfSeats": 5,
-            "price": "Rs 500/hr",
-            "carId":2
-        },
-        {
-            "carName": "Mahindra Thar",
-            "carImage": "images/creta.jpg",
-            "transmissionType": "Manual",
-            "fuelType": "Petrol",
-            "noOfSeats": 5,
-            "price": "Rs 500/hr",
-            "carId":3
-        },
-        {
-            "carName": "Tata Safari",
-            "carImage": "images/creta.jpg",
-            "transmissionType": "Manual",
-            "fuelType": "Petrol",
-            "noOfSeats": 5,
-            "price": "Rs 500/hr",
-            "carId":4
-        },
-        {
-            "carName": "Hyundai Creta",
-            "carImage": "images/creta.jpg",
-            "transmissionType": "Manual",
-            "fuelType": "Petrol",
-            "noOfSeats": 5,
-            "price": "Rs 500/hr",
-            "carId":5
-        }
-    ]
+    console.log(props)
+    const searchResults = props.resultCarData;
+    // const searchResults = [
+    //     {
+    //         "carName": "Hyundai Creta",
+    //         "carImage": "/images/creta.jpg",
+    //         "transmissionType": "Manual",
+    //         "fuelType": "Petrol",
+    //         "noOfSeats": 5,
+    //         "price": "Rs 500/hr",
+    //         "carId":1
+    //     },
+    //     {
+    //         "carName": "Suzuki Brezza",
+    //         "carImage": "/images/creta.jpg",
+    //         "transmissionType": "Manual",
+    //         "fuelType": "Petrol",
+    //         "noOfSeats": 5,
+    //         "price": "Rs 500/hr",
+    //         "carId":2
+    //     },
+    //     {
+    //         "carName": "Mahindra Thar",
+    //         "carImage": "images/creta.jpg",
+    //         "transmissionType": "Manual",
+    //         "fuelType": "Petrol",
+    //         "noOfSeats": 5,
+    //         "price": "Rs 500/hr",
+    //         "carId":3
+    //     },
+    //     {
+    //         "carName": "Tata Safari",
+    //         "carImage": "images/creta.jpg",
+    //         "transmissionType": "Manual",
+    //         "fuelType": "Petrol",
+    //         "noOfSeats": 5,
+    //         "price": "Rs 500/hr",
+    //         "carId":4
+    //     },
+    //     {
+    //         "carName": "Hyundai Creta",
+    //         "carImage": "images/creta.jpg",
+    //         "transmissionType": "Manual",
+    //         "fuelType": "Petrol",
+    //         "noOfSeats": 5,
+    //         "price": "Rs 500/hr",
+    //         "carId":5
+    //     }
+    // ]
     return (
         <div className="container">
             <div className="row">
-                <div className="col-lg-4">
+                <div className="col-lg-3">
                     <div className="card">
                         <label htmlFor="searchText" class="form-label">Seats:</label>
                         <div className="" style={{display:"inherit"}}>
@@ -75,7 +77,7 @@ const SearchResult = props => {
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-8">
+                <div className="col-lg-9">
                     {searchResults.map((item) => (
                         <CarCard 
                             key={item.carId}
