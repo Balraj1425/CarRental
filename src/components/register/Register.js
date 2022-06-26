@@ -12,7 +12,7 @@ export default function Register() {
     username: "",
     phone: "",
     password: "",
-    reEnterpassword: "",
+    cpassword: "",
   });
 
   const handelChange = (e) => {
@@ -30,15 +30,15 @@ export default function Register() {
       user.email &&
       user.phone &&
       user.username &&
-      user.password === user.reEnterpassword
+      user.password === user.cpassword
     ) {
-      axios.post("http://localhost:3009/register", user).then((res) => {
+      axios.post("http://localhost:3001/register", user).then((res) => {
         alert(res.data.message);
         navigate("/login");
         // console.log(res);
       });
     } else {
-      if (user.password !== user.reEnterpassword) {
+      if (user.password !== user.cpassword) {
         alert("Password Didn't Matched");
       } else {
         alert("Fill all the details");
@@ -132,8 +132,8 @@ export default function Register() {
                   type="password"
                   className="form-control "
                   id="exampleInputPassword2"
-                  name="reEnterpassword"
-                  value={user.reEnterpassword}
+                  name="cpassword"
+                  value={user.cpassword}
                   onChange={handelChange}
                 />
               </div>

@@ -1,11 +1,12 @@
 import React from "react";
 import SearchCar from "../search/searchCar";
+import SearchResult from "../search/searchResult";
 
 export default function Home() {
   return (
     <div>
-      <h1>hi</h1>
       <SearchCar />
+      <SearchResult />
     </div>
   );
 }

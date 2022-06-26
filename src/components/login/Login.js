@@ -18,7 +18,7 @@ export default function Login() {
   };
   const handelLoginClick = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3009/login", login).then((res) => {
+    axios.post("http://localhost:3001/login", login).then((res) => {
       // navigate("/home");
       alert(res.data.message);
     });
