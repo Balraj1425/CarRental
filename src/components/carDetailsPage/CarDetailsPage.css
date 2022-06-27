@@ -2,7 +2,98 @@
   width: 2px;
   height: 34px;
   background-image: linear-gradient(to bottom, #ec4909, #e48a73);
-  position: absolute;
-  top: 46px;
-  left: 27px;
+  margin-left: 83px;
+}
+.img-wrapper {
+  width: 200px;
+  height: 130px;
+  padding: 0.5rem;
+}
+.start-icon {
+  width: 13px;
+  height: 13px;
+  border-radius: 12px;
+  background-color: rgb(76, 119, 83);
+}
+
+.icon-alignment {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+.end-icon {
+  width: 13px;
+  height: 13px;
+  border-radius: 12px;
+  background-color: rgb(216, 50, 0);
+}
+.trip-date-details {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.fuel-type {
+  margin-left: 78px;
+}
+.fuel-type .fuel-icon {
+  font-size: 20px;
+}
+.fuel-type .fuel-detail {
+  margin-left: 4.4rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.star-icon {
+  margin-left: 75px;
+  margin-top: 10px;
+}
+.star-icon .star-detail {
+  margin-left: 4.7rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.precaution {
+  background-color: rgb(240, 244, 255);
+  padding: 12px 40px 12px 16px;
+  margin-top: 16px;
+  border-radius: 4px;
+
+  text-align: center;
+}
+.aggriments-policy {
+  display: flex;
+  flex-direction: column;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 20px;
+}
+.keep-in-mind {
+  font-size: 20px;
+  margin-left: 4.5rem;
+}
+.dl-policy {
+  margin-left: 4.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+.dl-content {
+  margin-left: 4.7rem;
+}
+.fare-fuel-policy {
+  margin-left: 4.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fuel-icon-content {
+  display: flex;
+  flex-direction: row;
+}
+.fare-fuel-policy-content1 {
+  margin-right: 4.8rem;
+}
+.fare-fuel-policy-content2 {
+  margin-left: 5.8rem;
+  font-size: smaller;
+}
+.seeDetails {
+  margin-left: 5.8rem;
+  font-size: small;
+}
+.aggrement-Checkbox {
+  margin-left: 3rem;
 }

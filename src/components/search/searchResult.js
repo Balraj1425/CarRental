@@ -9,8 +9,8 @@ import axios from "axios";
 const SearchResult = (props) => {
   console.log(props);
   const searchResults = props.resultCarData;
-  console.log("final data")
-  console.log(searchResults)
+  console.log("final data");
+  console.log(searchResults);
 
   const searchCarData = props.searchCarData;
 
