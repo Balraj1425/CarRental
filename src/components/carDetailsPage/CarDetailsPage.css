@@ -2,7 +2,7 @@
   width: 2px;
   height: 34px;
   background-image: linear-gradient(to bottom, #ec4909, #e48a73);
-  margin-left: 83px;
+  margin-left: 5.2rem;
 }
 .img-wrapper {
   width: 200px;
@@ -20,6 +20,7 @@
   display: flex;
   justify-content: space-around;
   padding: 20px;
+  margin-left: 3.7rem;
 }
 .end-icon {
   width: 13px;
@@ -29,6 +30,7 @@
 }
 .trip-date-details {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-left: 3.5rem;
 }
 .fuel-type {
   margin-left: 78px;
@@ -96,4 +98,44 @@
 }
 .aggrement-Checkbox {
   margin-left: 3rem;
+}
+.payment-Detail1 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-bottom: 1rem;
+}
+.payment-summery {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 1rem;
+}
+.payment-alignment1 {
+  margin-left: 1.5rem;
+}
+.payment-alignment2 {
+  margin-left: 1.5rem;
+}
+.payment-alignment3 {
+  margin-left: 1.5rem;
+}
+.payment-alignment4 {
+  margin-left: 1.5rem;
+}
+.payment-alignment5 {
+  margin-left: 1.5rem;
+}
+.payment-amount1 {
+  margin-left: 7rem;
+}
+.payment-amount2 {
+  margin-left: 13.7rem;
+}
+.payment-amount3 {
+  margin-left: 19rem;
+}
+.payment-amount4 {
+  margin-left: 16.1rem;
+}
+.payment-amount5 {
+  margin-left: 19rem;
 }

@@ -15,25 +15,25 @@ export default function CarDetailsPage(props) {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-8">
-            <div className="card">
+            <div className="card mt-3">
               <div className="img-wrapper">
                 <img class="card-img-top" alt="card" src={carImage} />
               </div>
-              <div className="col-sm-12 d-flex mt-4">
-                <div className="col-sm-2 icon-alignment">
+              <div className=" d-flex mt-4">
+                <div className="icon-alignment">
                   <div className="start-icon"></div>
                 </div>
-                <div className="col-sm-10 trip-date-details">
+                <div className="trip-date-details">
                   <span>Mon, 27 Jun, 12:00 AM</span>
                   <h6>Delhi</h6>
                 </div>
               </div>
               <div className="connector"></div>
-              <div className="col-sm-12 d-flex ">
-                <div className="col-sm-2 icon-alignment">
+              <div className=" d-flex ">
+                <div className=" icon-alignment">
                   <div className="end-icon"></div>
                 </div>
-                <div className="col-sm-10 trip-date-details">
+                <div className="trip-date-details">
                   <span>Mon, 30 Jun, 12:00 AM</span>
                   <h6>Delhi</h6>
                 </div>
@@ -50,7 +50,7 @@ export default function CarDetailsPage(props) {
                 </span>
                 <span className="star-detail">4.5 (12) · 6,500 kms driven</span>
               </div>
-              <div className="container  precaution">
+              <div className="container precaution">
                 <div className="container">
                   You will get a clean and sanitized car. Exact car location
                   will be shared post-booking
@@ -132,8 +132,45 @@ export default function CarDetailsPage(props) {
             </div>
           </div>
           <div className="col-sm-4">
-            <div className="card">
-              <h1>Payment details</h1>
+            <div className="card mt-3">
+              <h5 className="payment-summery">Payment Summery</h5>
+              <div className="d-flex flex-column">
+                <div className="d-flex ">
+                  <div className="payment-Detail1 payment-alignment1">
+                    Trip Fare (Unlimited KMs without Fuel)
+                  </div>
+                  <span className="payment-amount1">₹2,301</span>
+                </div>
+                <div className="d-flex ">
+                  <div className="payment-Detail1 payment-alignment2cd">
+                    Damage Protection Fee
+                  </div>
+                  <span className="payment-amount2">+₹300</span>
+                </div>
+                <div className="d-flex ">
+                  <div className="payment-Detail1 payment-alignment3">
+                    Total Fare
+                  </div>
+                  <span className="payment-amount3">₹2,601</span>
+                </div>
+                <div className="d-flex ">
+                  <div className="payment-Detail1 payment-alignment4">
+                    Car Rental Wallet
+                  </div>
+                  <span className="payment-amount4">-₹400</span>
+                </div>
+                <div className="d-flex ">
+                  <div className="payment-Detail1 payment-alignment5">
+                    Final Fare
+                  </div>
+                  <span className="payment-amount5">₹2,201</span>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn btn-primary mb-2" type="button">
+                    Proceed To Pay
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
