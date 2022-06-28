@@ -42,14 +42,15 @@ const SearchResult = (props) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-lg-3">
-          <div className="card">
-            <label htmlFor="searchText" class="form-label">
+        <div className="col-lg-4">
+          <div className="card filter-card mt-2">
+            <label htmlFor="searchText" class="form-label ">
               Car Types:
             </label>
             <ToggleButtonGroup
               color="primary"
               value={filterData.cartypes}
+              className="filter-types"
               exclusive
               onChange={(event) => handleChange(event, "cartypes")}
             >
@@ -63,6 +64,7 @@ const SearchResult = (props) => {
             <ToggleButtonGroup
               color="primary"
               value={filterData.seats}
+              className="filter-types"
               exclusive
               onChange={(event) => handleChange(event, "seats")}
             >
@@ -76,6 +78,7 @@ const SearchResult = (props) => {
             <ToggleButtonGroup
               color="primary"
               value={filterData.transmission}
+              className="filter-types mb-2"
               exclusive
               onChange={(event) => handleChange(event, "transmission")}
             >
@@ -84,7 +87,7 @@ const SearchResult = (props) => {
             </ToggleButtonGroup>
           </div>
         </div>
-        <div className="col-lg-9">
+        <div className="col-lg-8 mt-2">
           {searchResults.map((item) => (
             <CarCard
               key={item.carId}

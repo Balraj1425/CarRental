@@ -109,8 +109,8 @@ const CarDetails = new mongoose.Schema({
   },
   carType: {
     type: String,
-    require:true
-  }
+    require: true,
+  },
 });
 
 //Creating a Model of a schema into a Database
@@ -129,8 +129,11 @@ const authorization = (req, res, next) => {
     const data = jwt.verify(token, jwttokenKey);
     USERDETAILS.findOne({ tokens: token }, (err, result) => {
       if (result) {
-        console.log(result);
+        // console.log(result);
+
+        // console.log(data);
         if (result.username === username) {
+          req.body = result;
           return next();
         } else {
           res.send("invalid token");
@@ -245,9 +248,12 @@ app.post("/contactus", async (req, res) => {
   }
 });
 
-app.post("/aboutus", async (req, res) => {
+app.get("/aboutus", authorization, async (req, res) => {
   try {
     console.log("Welcome to homepage");
+    // res.send("you are here");
+
+    res.send(req.body);
   } catch (error) {
     console.log("Error Occured");
     res.status(404).send("Failed to Load page");
@@ -282,11 +288,11 @@ app.post("/filterdata", async (req, res) => {
     if (req.body.pickuplocation && req.body.pickuplocation != "") {
       queryParam.push({ carLocation: req.body.pickuplocation });
     }
-    console.log("query params")
-    console.log(queryParam)
+    console.log("query params");
+    console.log(queryParam);
     CARDETAILS.find({ $and: queryParam }, (err, result) => {
       console.log("filtered data");
-      console.log(result)
+      console.log(result);
       if (result) {
         res.send(result);
       }
@@ -295,6 +301,10 @@ app.post("/filterdata", async (req, res) => {
   } catch (error) {
     console.log("Error Occured");
   }
+});
+
+app.get("/cardetailspage", async (req, res) => {
+  console.log("");
 });
 
 app.listen(port, () => {

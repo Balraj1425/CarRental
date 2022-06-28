@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import "./searchResult.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const CarCard = (props) => {
   return (
