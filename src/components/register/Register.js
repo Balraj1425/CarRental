@@ -60,7 +60,7 @@ export default function Register() {
                   </label>
                   <input
                     type="text"
-                    className="form-control "
+                    className="form-control shadow-none "
                     id="exampleInputname"
                     aria-describedby="nameHelp"
                     name="name"
@@ -74,7 +74,7 @@ export default function Register() {
                   </label>
                   <input
                     type="email"
-                    className="form-control "
+                    className="form-control shadow-none "
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     name="email"
@@ -88,7 +88,7 @@ export default function Register() {
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control shadow-none"
                     id="exampleInputUsername"
                     aria-describedby="usernameHelp"
                     name="username"
@@ -102,7 +102,7 @@ export default function Register() {
                   </label>
                   <input
                     type="tel"
-                    className="form-control "
+                    className="form-control shadow-none "
                     id="exampleInputMobile"
                     aria-describedby="MobileHelp"
                     name="phone"
@@ -116,7 +116,7 @@ export default function Register() {
                   </label>
                   <input
                     type="password"
-                    className="form-control "
+                    className="form-control shadow-none"
                     id="exampleInputPassword1"
                     name="password"
                     value={user.password}
@@ -129,7 +129,7 @@ export default function Register() {
                   </label>
                   <input
                     type="password"
-                    className="form-control "
+                    className="form-control shadow-none"
                     id="exampleInputPassword2"
                     name="cpassword"
                     value={user.cpassword}

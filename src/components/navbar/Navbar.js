@@ -45,7 +45,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/login">
+                <Link className="nav-link" to="/alllogin">
                   <span className="navbar-textcolor ">Login/SignUp</span>
                 </Link>
               </li>

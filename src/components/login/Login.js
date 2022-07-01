@@ -38,7 +38,7 @@ export default function Login() {
                   </label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control shadow-none"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     name="email"
@@ -52,7 +52,7 @@ export default function Login() {
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control shadow-none"
                     id="exampleInputPassword1"
                     name="password"
                     value={login.password}

@@ -38,6 +38,7 @@ mongoose
 const connection = mongoose.connection;
 
 //Creating a Schema for database
+//User Registration Details
 
 const UserDetails = new mongoose.Schema({
   name: {
@@ -66,6 +67,35 @@ const UserDetails = new mongoose.Schema({
   },
 });
 
+//Owners Registration
+const OwnersDetails = new mongoose.Schema({
+  name: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+  },
+  phone: {
+    type: Number,
+    require: true,
+  },
+  username: {
+    type: String,
+    require: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  tokens: {
+    type: String,
+    require: true,
+  },
+});
+
+//Owners Car Details
 const CarDetails = new mongoose.Schema({
   carName: {
     type: String,
@@ -116,6 +146,7 @@ const CarDetails = new mongoose.Schema({
 //Creating a Model of a schema into a Database
 
 const USERDETAILS = connection.model("usersdetail", UserDetails);
+const OWNERSDETAILS = connection.model("ownersdetail", OwnersDetails);
 const CARDETAILS = connection.model("cardetails", CarDetails);
 
 //middleware to validate user token
@@ -154,6 +185,7 @@ const authorization = (req, res, next) => {
 
 //Creating Routes/APi
 
+//Routes for user Registration
 app.post("/register", (req, res) => {
   //Destructuring the Object
   const { name, email, phone, username, password, cpassword } = req.body;
@@ -182,6 +214,8 @@ app.post("/register", (req, res) => {
     }
   });
 });
+
+//Routes for User Login & Authentication
 let AuthToken;
 app.post("/login", async (req, res) => {
   try {
@@ -267,6 +301,7 @@ app.get("/aboutus", authorization, async (req, res) => {
   }
 });
 
+//Routes for searching a car on basis of location at home page
 app.post("/searchCars", async (req, res) => {
   try {
     const { pickuplocation, datefrom, dateto } = req.body;
@@ -280,6 +315,7 @@ app.post("/searchCars", async (req, res) => {
   } catch (error) {}
 });
 
+//Routes for filter the searchCar on basis of need on the home page of user
 app.post("/filterdata", async (req, res) => {
   try {
     let queryParam = [{ status: true }];
@@ -312,6 +348,18 @@ app.post("/filterdata", async (req, res) => {
 
 app.get("/cardetailspage", async (req, res) => {
   console.log("");
+});
+
+//Owners Routes
+
+//Routes for Registration of the owner
+
+app.post("/ownerregister", async (req, res) => {
+  try {
+  } catch (error) {
+    console.log("Error cannot register");
+    res.send("Error cannot register");
+  }
 });
 
 app.listen(port, () => {
