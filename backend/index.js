@@ -356,9 +356,90 @@ app.get("/cardetailspage", async (req, res) => {
 
 app.post("/ownerregister", async (req, res) => {
   try {
+    const { name, email, phone, username, password, cpassword } = req.body;
+    if (!name || !email || !phone || !username || !password || !cpassword) {
+      console.log("Please fill all the Details ");
+      res.status(422).send("Please fill all the Details");
+    }
+    //Check if the owner is already registered or not
+    OWNERSDETAILS.findOne({ email: email }, (err, result) => {
+      if (result) {
+        res.send({ message: "User Already exist" });
+      } else {
+        //Saving the req.body value into values
+        const values = new OWNERSDETAILS(req.body);
+        values.password = crypto
+          .createHash("sha256", hasingKey)
+          .update(req.body.password)
+          .digest("hex");
+        values.save((err) => {
+          if (err) {
+            res.send(err);
+          } else {
+            res.send({ message: "User Registered" });
+          }
+        });
+      }
+    });
   } catch (error) {
     console.log("Error cannot register");
     res.send("Error cannot register");
+  }
+});
+
+//Routes for User Login & Authentication
+let OwnerAuthToken;
+app.post("/ownerlogin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      console.log("Please fill al the details");
+      res.send({ message: "Please fill all the details" });
+    }
+    USERDETAILS.findOne({ email: email }, (err, result) => {
+      if (result) {
+        //Creating hash to check with DB hash password
+        req.body.password = crypto
+          .createHash("sha256", hasingKey)
+          .update(req.body.password)
+          .digest("hex");
+        if (req.body.password === result.password) {
+          //Creating a JWT Token and storing into Database
+
+          OwnerAuthToken = jwt.sign({ _id: result._id }, jwttokenKey);
+          result.tokens = OwnerAuthToken;
+          console.log("result", result);
+
+          result.save((err) => {
+            if (err) {
+              console.log("Error: Unable to save");
+            } else {
+              console.log("Saved Successfully");
+            }
+          });
+          console.log("User Logged In");
+
+          //Creating cookies at login
+          res.cookie("username", result.username, { httpOnly: true });
+          return res
+            .cookie("access_token", OwnerAuthToken, {
+              httpOnly: true,
+            })
+            .status(200)
+            .json({ message: "Logged in successfully 😊 👌" });
+        } else {
+          console.log(result);
+          res.send({ message: "Incorrect Credentials" });
+        }
+      } else {
+        console.log("User Didn,t Exist");
+        res.send({ message: "User Didn,t Exist" });
+      }
+    });
+  } catch (error) {
+    console.log("Error Occured");
+    req.body.password;
+    res.status(404).send("Failed to Login");
   }
 });
 
