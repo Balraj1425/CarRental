@@ -4,7 +4,8 @@ import Logo from "../images/logo.jpg";
 import "../navbar/Navbar.css";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  console.log(props)
   return (
     <>
       <nav className="navbar navbar-expand-lg  navbar-bgcolor">
@@ -25,6 +26,7 @@ export default function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            {props.isLoggedIn && 
               <li className="nav-item">
                 <Link
                   className="nav-link active"
@@ -34,6 +36,7 @@ export default function Navbar() {
                   <span className="navbar-textcolor "> Home</span>
                 </Link>
               </li>
+            }
               <li className="nav-item">
                 <Link className="nav-link" to="/aboutus">
                   <span className="navbar-textcolor "> About US</span>
@@ -44,11 +47,20 @@ export default function Navbar() {
                   <span className="navbar-textcolor "> Contact US</span>
                 </Link>
               </li>
+              {!props.isLoggedIn &&
               <li className="nav-item">
                 <Link className="nav-link" to="/alllogin">
                   <span className="navbar-textcolor ">Login/SignUp</span>
                 </Link>
               </li>
+              }
+              {props.isLoggedIn &&
+              <li className="nav-item">
+                <Link className="nav-link" to="">
+                  <span className="navbar-textcolor ">LogOut</span>
+                </Link>
+              </li>
+              }
             </ul>
           </div>
         </div>

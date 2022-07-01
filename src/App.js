@@ -12,15 +12,20 @@ import SearchCar from "./components/search/searchCar";
 import CarDetailsPage from "./components/carDetailsPage/CarDetailsPage";
 import Alllogin from "./Alllogin/Alllogin";
 import ORegister from "../src/Owners/register/Register";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loginHandler = (data) =>{
+    setIsLoggedIn(data)
+  }
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn}/>
         <Routes>
-          <Route exact path="/" element={<Login />}></Route>
-          <Route path="/login" element={<Login />}></Route>
+          <Route exact path="/" element={<Login onLogIn={loginHandler}/>}></Route>
+          <Route path="/login" element={<Login onLogIn={loginHandler}/>}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/home" element={<SearchCar />}></Route>
           <Route path="/aboutus" element={<Aboutus />}></Route>
