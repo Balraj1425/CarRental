@@ -12,9 +12,6 @@ const SearchCar = () => {
   });
   const handelChange = (e) => {
     const { name, value } = e.target;
-    // console.log(name);
-    // console.log(value);
-    // console.log("dateto", dateto);
     setSearchCar({
       ...searchCarData,
       [name]: value,
@@ -23,7 +20,7 @@ const SearchCar = () => {
   const [resultCarData, setResultCarData] = useState([]);
   const searchCarHandler = (e) => {
     e.preventDefault();
-    setShowResult(true)
+    setShowResult(true);
     axios
       .post("http://localhost:3001/searchCars", searchCarData)
       .then((res) => {
@@ -32,16 +29,13 @@ const SearchCar = () => {
         setResultCarData(res.data);
       });
   };
-  const saveFilterDataHandler=(data)=>{
-    console.log("final data in search car")
-    console.log(data)
+  const saveFilterDataHandler = (data) => {
     setResultCarData(data);
-  }
-  
+  };
+
   return (
     <Fragment>
-      
-      {!showResult && 
+      {!showResult && (
         <div className="search-car">
           <label htmlFor="searchText" class="form-label">
             Select Destination
@@ -77,14 +71,14 @@ const SearchCar = () => {
           />
           <button onClick={searchCarHandler}>Find Cars</button>
         </div>
-      }
-      {showResult && 
+      )}
+      {showResult && (
         <SearchResult
           resultCarData={resultCarData}
           searchCarData={searchCarData}
           onFilterData={saveFilterDataHandler}
         />
-      }
+      )}
     </Fragment>
   );
 };

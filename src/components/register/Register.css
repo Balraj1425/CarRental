@@ -7,3 +7,7 @@
 .form-input {
   padding: 10px;
 }
+.firstregisterdiv {
+  height: 110vh;
+  background: linear-gradient(#b4f8c8, #a0e7e5);
+}

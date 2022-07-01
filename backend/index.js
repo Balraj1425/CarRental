@@ -122,17 +122,24 @@ const CARDETAILS = connection.model("cardetails", CarDetails);
 const authorization = (req, res, next) => {
   const token = req.cookies.access_token;
   const username = req.cookies.username;
+  console.log("token", token);
   if (!token) {
+    console.log("token not found");
+
     return res.sendStatus(403);
   }
   try {
     const data = jwt.verify(token, jwttokenKey);
     USERDETAILS.findOne({ tokens: token }, (err, result) => {
+      // USERDETAILS.findOne({ _id: data._id }, { tokens: token }, (err, result) => {
       if (result) {
         // console.log(result);
 
         // console.log(data);
         if (result.username === username) {
+          console.log("valid user");
+
+          console.log(result);
           req.body = result;
           return next();
         } else {
@@ -231,8 +238,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", authorization, async (req, res) => {
+app.get("/home", async (req, res) => {
   try {
+    console.log("inside home");
     return res.send("Token found");
   } catch (error) {
     console.log("Error Occured");
@@ -250,9 +258,8 @@ app.post("/contactus", async (req, res) => {
 
 app.get("/aboutus", authorization, async (req, res) => {
   try {
-    console.log("Welcome to homepage");
-    // res.send("you are here");
-
+    console.log("Welcome to aboutus");
+    console.log("you are in aboutpage with valid person");
     res.send(req.body);
   } catch (error) {
     console.log("Error Occured");

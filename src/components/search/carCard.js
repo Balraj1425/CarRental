@@ -1,9 +1,16 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import "./searchResult.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const CarCard = (props) => {
+  const navigate = useNavigate();
+  const carDetailspage = () => {
+    navigate("/cardetailspage", { state: { props } });
+  };
+  console.log("props==>", props);
+  // console.log("searchCarData", props.searchCarData);
+
   return (
     <Fragment>
       <div className="car-card">
@@ -20,8 +27,7 @@ const CarCard = (props) => {
         <div>
           <strong>{props.price}</strong>
           <br />
-
-          <button className="btn btn-outline-primary" onClick="">
+          <button className="btn btn-outline-primary" onClick={carDetailspage}>
             Book Now
           </button>
         </div>

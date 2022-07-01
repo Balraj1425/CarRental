@@ -4,6 +4,9 @@
   background-image: linear-gradient(to bottom, #ec4909, #e48a73);
   margin-left: 5.2rem;
 }
+.card-img-top {
+  min-width: 100px;
+}
 .img-wrapper {
   width: 200px;
   height: 130px;
@@ -138,4 +141,13 @@
 }
 .payment-amount5 {
   margin-left: 19rem;
+}
+.cartypes {
+  width: 300px;
+  margin-left: 10rem;
+}
+.cartypes span {
+  font-size: 20px;
+  padding: 10px;
+  margin-top: 1rem;
 }

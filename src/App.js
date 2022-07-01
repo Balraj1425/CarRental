@@ -3,15 +3,13 @@ import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
-
 import Aboutus from "./components/aboutus/Aboutus";
 import Contactus from "./components/contactus/Contactus";
 import Home from "./components/home/Home";
 import SearchResult from "./components/search/searchResult";
 import SearchCar from "./components/search/searchCar";
 import CarDetailsPage from "./components/carDetailsPage/CarDetailsPage";
-
-// import SearchResult from "./components/search/searchResult";
+import Alllogin from "./Alllogin/Alllogin";
 
 function App() {
   return (
@@ -27,6 +25,7 @@ function App() {
           <Route path="/contactus" element={<Contactus />}></Route>
           <Route path="/searchresult" element={<SearchResult />}></Route>
           <Route path="/cardetailspage" element={<CarDetailsPage />}></Route>
+          <Route path="/alllogin" element={<Alllogin />}></Route>
         </Routes>
       </Router>
     </>

@@ -2,30 +2,65 @@ import React from "react";
 import "../carDetailsPage/CarDetailsPage.css";
 import carImage from "../images/creta.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGasPump } from "@fortawesome/free-solid-svg-icons";
+import { faCar, faGasPump, faGear } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { faHandshake } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { faChair } from "@fortawesome/free-solid-svg-icons";
+
+import { Link, useLocation } from "react-router-dom";
 
 export default function CarDetailsPage(props) {
+  console.log("props====>", props);
+  const { state } = useLocation();
+  console.log(state.props.searchCarData);
   return (
     <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-8">
             <div className="card mt-3">
-              <div className="img-wrapper">
-                <img class="card-img-top" alt="card" src={carImage} />
+              <div>
+                <h4>{state.props.carName}</h4>
+              </div>
+              <div className="d-flex">
+                <div className="img-wrapper">
+                  <img
+                    class="card-img-top"
+                    alt="card"
+                    src={state.props.carImage}
+                  />
+                </div>
+
+                <div className="d-flex flex-column">
+                  <div className="cartypes">
+                    <span>
+                      <FontAwesomeIcon icon={faCar} />
+                    </span>
+                    sedan
+                  </div>
+                  <div className="cartypes">
+                    <span>
+                      <FontAwesomeIcon icon={faChair} />
+                    </span>
+                    {state.props.price} Seats
+                  </div>
+                  <div className="cartypes">
+                    <span>
+                      <FontAwesomeIcon icon={faGear} />
+                    </span>
+                    {state.props.transmissionType}
+                  </div>
+                </div>
               </div>
               <div className=" d-flex mt-4">
                 <div className="icon-alignment">
                   <div className="start-icon"></div>
                 </div>
                 <div className="trip-date-details">
-                  <span>Mon, 27 Jun, 12:00 AM</span>
-                  <h6>Delhi</h6>
+                  <span>{state.props.searchCarData.datefrom}</span>
+                  <h6>{state.props.searchCarData.pickuplocation}</h6>
                 </div>
               </div>
               <div className="connector"></div>
@@ -34,15 +69,17 @@ export default function CarDetailsPage(props) {
                   <div className="end-icon"></div>
                 </div>
                 <div className="trip-date-details">
-                  <span>Mon, 30 Jun, 12:00 AM</span>
-                  <h6>Delhi</h6>
+                  <span>{state.props.searchCarData.dateto}</span>
+                  <h6>{state.props.searchCarData.pickuplocation}</h6>
                 </div>
               </div>
               <div className="fuel-type">
                 <span className="fuel-icon">
                   <FontAwesomeIcon icon={faGasPump} />
                 </span>
-                <span className="fuel-detail">Unlimited Km without fuel</span>
+                <span className="fuel-detail">
+                  Unlimited Km without {state.props.fuelType}
+                </span>
               </div>
               <div className="star-icon">
                 <span>
@@ -139,10 +176,10 @@ export default function CarDetailsPage(props) {
                   <div className="payment-Detail1 payment-alignment1">
                     Trip Fare (Unlimited KMs without Fuel)
                   </div>
-                  <span className="payment-amount1">₹2,301</span>
+                  <span className="payment-amount1">{state.props.price}</span>
                 </div>
                 <div className="d-flex ">
-                  <div className="payment-Detail1 payment-alignment2cd">
+                  <div className="payment-Detail1 payment-alignment2">
                     Damage Protection Fee
                   </div>
                   <span className="payment-amount2">+₹300</span>
