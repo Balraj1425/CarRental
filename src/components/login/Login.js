@@ -3,7 +3,9 @@ import "../login/Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
+  
+  // sessionStorage.setItem("isLoggedIn", "false");
   const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
@@ -19,8 +21,11 @@ export default function Login() {
   const handelLoginClick = (e) => {
     e.preventDefault();
     axios.post("http://localhost:3001/login", login).then((res) => {
+      sessionStorage.setItem("username", res.data.message.username);
+      sessionStorage.setItem("access_token", res.data.message.access_token);
+      props.onLogIn(true);
+      // sessionStorage.setItem("isLoggedIn", "true");      
       navigate("/home");
-      alert(res.data.message);
     });
   };
   return (
