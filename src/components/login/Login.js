@@ -19,8 +19,9 @@ export default function Login() {
   const handelLoginClick = (e) => {
     e.preventDefault();
     axios.post("http://localhost:3001/login", login).then((res) => {
+      sessionStorage.setItem("username", res.data.message.username);
+      sessionStorage.setItem("access_token", res.data.message.access_token);
       navigate("/home");
-      alert(res.data.message);
     });
   };
   return (

@@ -151,12 +151,11 @@ const CARDETAILS = connection.model("cardetails", CarDetails);
 
 //middleware to validate user token
 const authorization = (req, res, next) => {
-  const token = req.cookies.access_token;
-  const username = req.cookies.username;
+  const token = req.headers.access_token;
+  const username = req.headers.username;
   console.log("token", token);
   if (!token) {
     console.log("token not found");
-
     return res.sendStatus(403);
   }
   try {
@@ -168,9 +167,6 @@ const authorization = (req, res, next) => {
 
         // console.log(data);
         if (result.username === username) {
-          console.log("valid user");
-
-          console.log(result);
           req.body = result;
           return next();
         } else {
@@ -255,7 +251,7 @@ app.post("/login", async (req, res) => {
               httpOnly: true,
             })
             .status(200)
-            .json({ message: "Logged in successfully 😊 👌" });
+            .json({ message: {username:result.username,access_token:AuthToken } });
         } else {
           console.log(result);
           res.send({ message: "Incorrect Credentials" });
@@ -272,7 +268,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", async (req, res) => {
+app.get("/home", authorization, async (req, res) => {
   try {
     console.log("inside home");
     return res.send("Token found");
@@ -281,7 +277,7 @@ app.get("/home", async (req, res) => {
     res.status(404).send("Failed to Load page");
   }
 });
-app.post("/contactus", async (req, res) => {
+app.post("/contactus", authorization, async (req, res) => {
   try {
     console.log("Welcome to homepage");
   } catch (error) {
@@ -293,8 +289,7 @@ app.post("/contactus", async (req, res) => {
 app.get("/aboutus", authorization, async (req, res) => {
   try {
     console.log("Welcome to aboutus");
-    console.log("you are in aboutpage with valid person");
-    res.send(req.body);
+    console.log(req);
   } catch (error) {
     console.log("Error Occured");
     res.status(404).send("Failed to Load page");
@@ -302,7 +297,7 @@ app.get("/aboutus", authorization, async (req, res) => {
 });
 
 //Routes for searching a car on basis of location at home page
-app.post("/searchCars", async (req, res) => {
+app.post("/searchCars", authorization, async (req, res) => {
   try {
     const { pickuplocation, datefrom, dateto } = req.body;
     const arr = [{ carLocation: pickuplocation }, { status: true }];
@@ -316,7 +311,7 @@ app.post("/searchCars", async (req, res) => {
 });
 
 //Routes for filter the searchCar on basis of need on the home page of user
-app.post("/filterdata", async (req, res) => {
+app.post("/filterdata", authorization, async (req, res) => {
   try {
     let queryParam = [{ status: true }];
     if (req.body.seats && req.body.seats != "") {
@@ -346,7 +341,7 @@ app.post("/filterdata", async (req, res) => {
   }
 });
 
-app.get("/cardetailspage", async (req, res) => {
+app.get("/cardetailspage", authorization, async (req, res) => {
   console.log("");
 });
 

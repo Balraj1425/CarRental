@@ -2,8 +2,10 @@ import { Fragment, useState } from "react";
 import "./searchCar.css";
 import axios from "axios";
 import SearchResult from "./searchResult";
+import { useNavigate } from "react-router-dom";
 
 const SearchCar = () => {
+  const navigate = useNavigate();
   const [showResult, setShowResult] = useState(false);
   const [searchCarData, setSearchCar] = useState({
     pickuplocation: "",
@@ -27,6 +29,10 @@ const SearchCar = () => {
         // navigate("/searchResult");
         console.log(res.data);
         setResultCarData(res.data);
+      }).catch(err => {
+        // Handle error
+        console.log(err);
+        navigate("/login");
       });
   };
   const saveFilterDataHandler = (data) => {
