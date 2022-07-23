@@ -5,6 +5,7 @@ import "./searchResult.css";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import axios from "axios";
+import { useEffect } from "react";
 
 const SearchResult = (props) => {
   // console.log(props);
@@ -24,18 +25,9 @@ const SearchResult = (props) => {
     cartypes: "",
   });
 
-  let details;
-
-  const handleChange = (event, name) => {
-    const { value } = event.target;
-    setFilterData({ ...filterData, [name]: value });
+  // let details;
+  useEffect(() => {
     const filterParameters = { ...filterData, ...searchCarData };
-
-    // console.log(filterData);
-    // console.log(searchCarData);
-    props.onFilterData([]);
-
-    // console.log(filterData);
     axios
       .post("http://localhost:3001/filterdata", filterParameters)
       .then((res) => {
@@ -43,6 +35,18 @@ const SearchResult = (props) => {
 
         props.onFilterData(res.data);
       });
+  }, [filterData]);
+
+  const handleChange = (event, name) => {
+    const { value } = event.target;
+    setFilterData({ ...filterData, [name]: value });
+
+    // console.log(filterData);
+    // console.log(searchCarData);
+    props.onFilterData([]);
+
+    // console.log(filterData);
+    
   };
 
   return (

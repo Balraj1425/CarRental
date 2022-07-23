@@ -268,7 +268,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", authorization, async (req, res) => {
+app.get("/home", async (req, res) => {
   try {
     console.log("inside home");
     return res.send("Token found");
@@ -277,7 +277,7 @@ app.get("/home", authorization, async (req, res) => {
     res.status(404).send("Failed to Load page");
   }
 });
-app.post("/contactus", authorization, async (req, res) => {
+app.post("/contactus", async (req, res) => {
   try {
     console.log("Welcome to homepage");
   } catch (error) {
@@ -286,7 +286,7 @@ app.post("/contactus", authorization, async (req, res) => {
   }
 });
 
-app.get("/aboutus", authorization, async (req, res) => {
+app.get("/aboutus", async (req, res) => {
   try {
     console.log("Welcome to aboutus");
     console.log(req);
@@ -297,7 +297,7 @@ app.get("/aboutus", authorization, async (req, res) => {
 });
 
 //Routes for searching a car on basis of location at home page
-app.post("/searchCars", authorization, async (req, res) => {
+app.post("/searchCars", async (req, res) => {
   try {
     const { pickuplocation, datefrom, dateto } = req.body;
     const arr = [{ carLocation: pickuplocation }, { status: true }];
@@ -311,7 +311,7 @@ app.post("/searchCars", authorization, async (req, res) => {
 });
 
 //Routes for filter the searchCar on basis of need on the home page of user
-app.post("/filterdata", authorization, async (req, res) => {
+app.post("/filterdata", async (req, res) => {
   try {
     let queryParam = [{ status: true }];
     if (req.body.seats && req.body.seats != "") {
@@ -341,7 +341,7 @@ app.post("/filterdata", authorization, async (req, res) => {
   }
 });
 
-app.get("/cardetailspage", authorization, async (req, res) => {
+app.get("/cardetailspage", async (req, res) => {
   console.log("");
 });
 
