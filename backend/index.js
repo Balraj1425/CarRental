@@ -154,6 +154,8 @@ const authorization = (req, res, next) => {
   const token = req.headers.access_token;
   const username = req.headers.username;
   console.log("token", token);
+  console.log("req", req);
+
   if (!token) {
     console.log("token not found");
     return res.sendStatus(403);
@@ -161,7 +163,6 @@ const authorization = (req, res, next) => {
   try {
     const data = jwt.verify(token, jwttokenKey);
     USERDETAILS.findOne({ tokens: token }, (err, result) => {
-      // USERDETAILS.findOne({ _id: data._id }, { tokens: token }, (err, result) => {
       if (result) {
         // console.log(result);
 
@@ -251,7 +252,9 @@ app.post("/login", async (req, res) => {
               httpOnly: true,
             })
             .status(200)
-            .json({ message: {username:result.username,access_token:AuthToken } });
+            .json({
+              message: { username: result.username, access_token: AuthToken },
+            });
         } else {
           console.log(result);
           res.send({ message: "Incorrect Credentials" });
@@ -268,7 +271,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/home", authorization, async (req, res) => {
+app.get("/home", async (req, res) => {
   try {
     console.log("inside home");
     return res.send("Token found");
@@ -277,7 +280,7 @@ app.get("/home", authorization, async (req, res) => {
     res.status(404).send("Failed to Load page");
   }
 });
-app.post("/contactus", authorization, async (req, res) => {
+app.post("/contactus", async (req, res) => {
   try {
     console.log("Welcome to homepage");
   } catch (error) {
@@ -286,10 +289,14 @@ app.post("/contactus", authorization, async (req, res) => {
   }
 });
 
-app.get("/aboutus", authorization, async (req, res) => {
+app.get("/aboutus", async (req, res) => {
   try {
     console.log("Welcome to aboutus");
-    console.log(req);
+    console.log(req.cookies);
+
+    // console.log(res);
+
+    // console.log(req);
   } catch (error) {
     console.log("Error Occured");
     res.status(404).send("Failed to Load page");
@@ -297,7 +304,7 @@ app.get("/aboutus", authorization, async (req, res) => {
 });
 
 //Routes for searching a car on basis of location at home page
-app.post("/searchCars", authorization, async (req, res) => {
+app.post("/searchCars", async (req, res) => {
   try {
     const { pickuplocation, datefrom, dateto } = req.body;
     const arr = [{ carLocation: pickuplocation }, { status: true }];
@@ -311,7 +318,7 @@ app.post("/searchCars", authorization, async (req, res) => {
 });
 
 //Routes for filter the searchCar on basis of need on the home page of user
-app.post("/filterdata", authorization, async (req, res) => {
+app.post("/filterdata", async (req, res) => {
   try {
     let queryParam = [{ status: true }];
     if (req.body.seats && req.body.seats != "") {
@@ -341,7 +348,7 @@ app.post("/filterdata", authorization, async (req, res) => {
   }
 });
 
-app.get("/cardetailspage", authorization, async (req, res) => {
+app.get("/cardetailspage", async (req, res) => {
   console.log("");
 });
 
@@ -351,31 +358,32 @@ app.get("/cardetailspage", authorization, async (req, res) => {
 
 app.post("/ownerregister", async (req, res) => {
   try {
-    const { name, email, phone, username, password, cpassword } = req.body;
-    if (!name || !email || !phone || !username || !password || !cpassword) {
+    const { name, email, phone, username, password } = req.body;
+    if (!name || !email || !phone || !username || !password) {
       console.log("Please fill all the Details ");
       res.status(422).send("Please fill all the Details");
+    } else {
+      //Check if the owner is already registered or not
+      OWNERSDETAILS.findOne({ email: email }, (err, result) => {
+        if (result) {
+          res.send({ message: "User Already exist" });
+        } else {
+          //Saving the req.body value into values
+          const values = new OWNERSDETAILS(req.body);
+          values.password = crypto
+            .createHash("sha256", hasingKey)
+            .update(req.body.password)
+            .digest("hex");
+          values.save((err) => {
+            if (err) {
+              res.send(err);
+            } else {
+              res.send({ message: "User Registered" });
+            }
+          });
+        }
+      });
     }
-    //Check if the owner is already registered or not
-    OWNERSDETAILS.findOne({ email: email }, (err, result) => {
-      if (result) {
-        res.send({ message: "User Already exist" });
-      } else {
-        //Saving the req.body value into values
-        const values = new OWNERSDETAILS(req.body);
-        values.password = crypto
-          .createHash("sha256", hasingKey)
-          .update(req.body.password)
-          .digest("hex");
-        values.save((err) => {
-          if (err) {
-            res.send(err);
-          } else {
-            res.send({ message: "User Registered" });
-          }
-        });
-      }
-    });
   } catch (error) {
     console.log("Error cannot register");
     res.send("Error cannot register");
@@ -391,7 +399,7 @@ app.post("/ownerlogin", async (req, res) => {
       console.log("Please fill al the details");
       res.send({ message: "Please fill all the details" });
     }
-    USERDETAILS.findOne({ email: email }, (err, result) => {
+    OWNERSDETAILS.findOne({ email: email }, (err, result) => {
       if (result) {
         //Creating hash to check with DB hash password
         req.body.password = crypto
