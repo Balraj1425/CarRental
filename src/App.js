@@ -13,19 +13,28 @@ import CarDetailsPage from "./components/carDetailsPage/CarDetailsPage";
 import Alllogin from "./Alllogin/Alllogin";
 import ORegister from "../src/Owners/register/Register";
 import { useState } from "react";
+import OwnerHome from "./Owners/Home/OwnerHome";
+import OwnerRentData from "./Owners/OwnerRentData/OwnerRentData";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const loginHandler = (data) =>{
-    setIsLoggedIn(data)
-  }
+  const loginHandler = (data) => {
+    setIsLoggedIn(data);
+  };
   return (
     <>
       <Router>
-        <Navbar isLoggedIn={isLoggedIn}/>
+        <Navbar isLoggedIn={isLoggedIn} />
         <Routes>
-          <Route exact path="/" element={<Login onLogIn={loginHandler}/>}></Route>
-          <Route path="/login" element={<Login onLogIn={loginHandler}/>}></Route>
+          <Route
+            exact
+            path="/"
+            element={<Login onLogIn={loginHandler} />}
+          ></Route>
+          <Route
+            path="/login"
+            element={<Login onLogIn={loginHandler} />}
+          ></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/home" element={<SearchCar />}></Route>
           <Route path="/aboutus" element={<Aboutus />}></Route>
@@ -35,6 +44,8 @@ function App() {
           <Route path="/alllogin" element={<Alllogin />}></Route>
           <Route path="/ownerlogin" element={<OLogin />}></Route>
           <Route path="/ownerregister" element={<ORegister />}></Route>
+          <Route path="/ownerhome" element={<OwnerHome />}></Route>
+          <Route path="/ownerfillform" element={<OwnerRentData />}></Route>
         </Routes>
       </Router>
     </>
