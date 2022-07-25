@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
 
 const OwnerRentData = () => {
+  const [carDetails, setCarDetails] = useState({
+    brand: "",
+    model: "",
+    kmdriven: "",
+    fueltype: "",
+    transmission: "",
+    seat: "",
+    location: "",
+    cartype: "",
+    carnumber: "",
+  });
+
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+    setCarDetails({
+      ...carDetails,
+      [name]: value,
+    });
+  };
+
+  const handelClick = (e) => {
+    e.preventDefault();
+    console.log("carDetails", carDetails);
+  };
   return (
     <>
       <div className="blankDiv">
@@ -19,6 +43,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
+                      name="brand"
+                      value={carDetails.brand}
+                      onChange={handelChange}
                       id="formGroupExampleName"
                       placeholder="Enter car Brand/Company"
                     />
@@ -30,6 +57,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
+                      name="model"
+                      onChange={handelChange}
+                      value={carDetails.model}
                       id="formGroupusername"
                       placeholder="Enter car Model"
                     />
@@ -43,6 +73,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
+                      name="kmdriven"
+                      onChange={handelChange}
+                      value={carDetails.kmdriven}
                       id="formGroupExampleName"
                       placeholder="Enter car Km Driven"
                     />
@@ -53,6 +86,8 @@ const OwnerRentData = () => {
                     </label>
                     <select
                       class="form-select"
+                      name="fueltype"
+                      onChange={handelChange}
                       aria-label="Default select example"
                     >
                       <option selected>Choose Fuel Type</option>
@@ -69,6 +104,8 @@ const OwnerRentData = () => {
                     </label>
                     <select
                       class="form-select"
+                      onChange={handelChange}
+                      name="transmission"
                       aria-label="Default select example"
                     >
                       <option selected>Choose Transmission</option>
@@ -82,6 +119,8 @@ const OwnerRentData = () => {
                     </label>
                     <select
                       class="form-select"
+                      onChange={handelChange}
+                      name="seat"
                       aria-label="Default select example"
                     >
                       <option selected>Choose No of Seats</option>
@@ -99,6 +138,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
+                      onChange={handelChange}
+                      name="location"
+                      value={carDetails.location}
                       id="formGroupExampleName"
                       placeholder="Enter car Location"
                     />
@@ -109,6 +151,8 @@ const OwnerRentData = () => {
                     </label>
                     <select
                       class="form-select"
+                      onChange={handelChange}
+                      name="cartype"
                       aria-label="Default select example"
                     >
                       <option selected>Choose Car Type</option>
@@ -126,12 +170,19 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
+                      onChange={handelChange}
+                      name="carnumber"
+                      value={carDetails.carnumber}
                       id="formGroupExampleName"
                       placeholder="Enter car Number Plate"
                     />
                   </div>
                 </div>
-                <button type="button" class="btn btn-success">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  onClick={handelClick}
+                >
                   Register
                 </button>
                 <div className="noAccount mt-5"></div>
