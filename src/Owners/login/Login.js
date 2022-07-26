@@ -20,6 +20,7 @@ export default function Login() {
   };
   const handelClick = async function (e) {
     try {
+      console.log("--------------------------");
       e.preventDefault();
       if (!login.email || !login.password) {
         alert("Please fill the Details");
@@ -28,12 +29,16 @@ export default function Login() {
           "http://localhost:3001/ownerlogin",
           login
         );
-        console.log("i am here");
-
-        alert(responce.data.message);
+        console.log("logged in");
+        console.log(responce);
+        if (responce.status === 200) {
+          navigate("/ownerhome");
+        } else {
+          alert(responce.data.message);
+        }
       }
-      navigate("/ownerhome");
     } catch (error) {
+      console.log(error);
       alert("Unable to login");
     }
   };
@@ -82,15 +87,15 @@ export default function Login() {
                   placeholder="Enter your password"
                 />
               </div>
-              <Link to="/home">
-                <button
-                  type="button"
-                  class="btn btn-success "
-                  onClick={handelClick}
-                >
-                  Login
-                </button>
-              </Link>
+
+              <button
+                type="submit"
+                class="btn btn-success "
+                onClick={handelClick}
+              >
+                Login
+              </button>
+
               <div className="noAccount mt-5">
                 <h6>
                   Don't have your Account

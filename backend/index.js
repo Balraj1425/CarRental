@@ -266,11 +266,11 @@ app.post("/login", async (req, res) => {
             });
         } else {
           console.log(result);
-          res.send({ message: "Incorrect Credentials" });
+          res.status(400).send({ message: "Incorrect Credentials" });
         }
       } else {
-        console.log("User Didn,t Exist");
-        res.send({ message: "User Didn,t Exist" });
+        console.log("User Didn't Exist");
+        res.status(400).send("test");
       }
     });
   } catch (error) {
@@ -476,11 +476,11 @@ app.post("/ownerlogin", async (req, res) => {
             .json({ message: "Logged in successfully 😊 👌" });
         } else {
           console.log(result);
-          res.send({ message: "Incorrect Credentials" });
+          res.status(400).send({ message: "Incorrect Credentials" });
         }
       } else {
-        console.log("User Didn,t Exist");
-        res.send({ message: "User Didn,t Exist" });
+        console.log("User Didn't Exist");
+        res.status(400).send({ message: "User Didn't Exist" });
       }
     });
   } catch (error) {
