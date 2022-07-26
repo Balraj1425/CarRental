@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const OwnerRentData = (props) => {
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  console.log(props)
+  const { state } = useLocation();
+
+  const userData = state.state.userData;
+
   const [carDetails, setCarDetails] = useState({
     carBrand: "",
     carModel: "",
@@ -25,9 +28,18 @@ const OwnerRentData = (props) => {
     });
   };
 
-  const handelClick = async function (e) {
-    console.log("cardetails", carDetails);
+  let userFinalData = { ...userData };
+  // userFinalData.ownerId = userFinalData._id;
+  let newData = {
+    name: userFinalData.name,
+    email: userFinalData.email,
+    phone: userFinalData.phone,
+    ownerId: userFinalData._id,
+  };
 
+  const finalData = { ...carDetails, ...newData };
+
+  const handelClick = async function (e) {
     try {
       e.preventDefault();
       if (
@@ -42,11 +54,10 @@ const OwnerRentData = (props) => {
         !carDetails.carNumber
       ) {
         alert("Please fill all the Details");
-        console.log("here");
       } else {
         const responce = await axios.post(
           "http://localhost:3001/insertcar",
-          carDetails
+          finalData
         );
         alert(responce.data.message);
       }

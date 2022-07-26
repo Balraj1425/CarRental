@@ -26,16 +26,12 @@ export default function Login() {
     if (validFormData == true) {
       axios.post("http://localhost:3001/ownerlogin", login).then((res) => {
         console.log("111111111111111111");
-        debugger;
+
         console.log(res);
         setUserData(res.data);
         if (res.status === 200) {
           setValidNavigate(true);
         }
-        //   navigate("/ownerhome", { state: { userData } });
-        //} else {
-        //   // console.log(responce.data);
-        // }
       });
     }
   }, [validFormData]);
@@ -52,24 +48,11 @@ export default function Login() {
 
   const handelClick = async function (e) {
     try {
-      console.log("--------------------------");
       e.preventDefault();
       if (!login.email || !login.password) {
         alert("Please fill the Details");
       } else {
         setValidFormData(true);
-        // const responce = await axios.post(
-        //   "http://localhost:3001/ownerlogin",
-        //   login
-        //   );
-        //   setUserData(responce);
-        //   console.log("logged in");
-        //   console.log(responce);
-        //   if (responce.status === 200) {
-        //     setValidNavigate(true);
-        // } else {
-        //   console.log(responce.data);
-        // }
       }
     } catch (error) {
       console.log(error);

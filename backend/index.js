@@ -125,8 +125,21 @@ const CarDetails = new mongoose.Schema({
   //   type: Number,
   //   require: true,
   // },
-  carOwnerID: {
+
+  ownerEmail: {
+    type: String,
+    require: true,
+  },
+  ownerId: {
+    type: String,
+    require: true,
+  },
+  phone: {
     type: Number,
+    require: true,
+  },
+  ownerName: {
+    type: String,
     require: true,
   },
   status: {
@@ -331,9 +344,16 @@ app.post("/insertcar", async (req, res) => {
       console.log("Please fill all the details");
       res.json({ message: "Please fill all the details" });
     } else {
+      // console.log(req.body.name);
       const newCar = await new CARDETAILS(req.body);
+      newCar.ownerName = req.body.name;
+      newCar.ownerEmail = req.body.email;
+      newCar.ownerId = req.body.ownerId;
+      newCar.phone = req.body.phone;
       newCar.save((err) => {
         if (err) {
+          console.log(err);
+
           console.log("Error in saving to database");
           res.json({ message: "Error in saving to database" });
         } else {
@@ -468,8 +488,10 @@ app.post("/ownerlogin", async (req, res) => {
 
           //Creating cookies at login
           res.cookie("username", result.username, { httpOnly: true });
-          res.cookie("access_token", OwnerAuthToken, { httpOnly: true }).status(200);
-          res.send(result)
+          res
+            .cookie("access_token", OwnerAuthToken, { httpOnly: true })
+            .status(200);
+          res.send(result);
           // return res
           //   .cookie("access_token", OwnerAuthToken, {
           //     httpOnly: true,
