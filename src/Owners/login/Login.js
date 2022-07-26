@@ -6,9 +6,9 @@ import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
-  // const [validFormData, setValidFormData] = useState();
-  const [ validNavigate, setValidNavigate] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [validFormData, setValidFormData] = useState(false);
+  const [validNavigate, setValidNavigate] = useState(false);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -22,29 +22,33 @@ export default function Login() {
     });
   };
 
-  // useEffect(() => {
-  //   axios.post("http://localhost:3001/ownerlogin",login).then((res) => {
-  //     console.log("111111111111111111")
-  //     debugger;
-  //     console.log(res)
-  //     setUserData(res.data);
-  //     if (res.status === 200) {
-  //       setValidNavigate(true);
-  //       navigate("/ownerhome", { state: { userData }});
-  //     } else {
-  //       // console.log(responce.data);
-  //     }
-  //   })
-  // }, [validFormData])
+  useEffect(() => {
+    if (validFormData == true) {
+      axios.post("http://localhost:3001/ownerlogin", login).then((res) => {
+        console.log("111111111111111111");
+        debugger;
+        console.log(res);
+        setUserData(res.data);
+        if (res.status === 200) {
+          setValidNavigate(true);
+        }
+        //   navigate("/ownerhome", { state: { userData } });
+        //} else {
+        //   // console.log(responce.data);
+        // }
+      });
+    }
+  }, [validFormData]);
 
   useEffect(() => {
-    console.log("for navigate")
-    if(validNavigate == true){
-      navigate("/ownerhome", { state: { userData }});
-    } else {
-      console.log("loading......")
+    if (userData != null && validNavigate == true) {
+      if (validNavigate == true) {
+        navigate("/ownerhome", { state: { userData } });
+      } else {
+        console.log("loading......");
+      }
     }
-  }, [validNavigate])
+  }, [userData, validNavigate]);
 
   const handelClick = async function (e) {
     try {
@@ -53,18 +57,19 @@ export default function Login() {
       if (!login.email || !login.password) {
         alert("Please fill the Details");
       } else {
-        const responce = await axios.post(
-          "http://localhost:3001/ownerlogin",
-          login
-          );
-          setUserData(responce);
-          console.log("logged in");
-          console.log(responce);
-          if (responce.status === 200) {
-            setValidNavigate(true);
-        } else {
-          console.log(responce.data);
-        }
+        setValidFormData(true);
+        // const responce = await axios.post(
+        //   "http://localhost:3001/ownerlogin",
+        //   login
+        //   );
+        //   setUserData(responce);
+        //   console.log("logged in");
+        //   console.log(responce);
+        //   if (responce.status === 200) {
+        //     setValidNavigate(true);
+        // } else {
+        //   console.log(responce.data);
+        // }
       }
     } catch (error) {
       console.log(error);
