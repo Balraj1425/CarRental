@@ -6,12 +6,15 @@ import tracking from "../../components/images/tracking.jpg";
 import money from "../../components/images/money.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const OwnerHome = () => {
+const OwnerHome = (props) => {
+  console.log(">>>>>>>>>>>>>>>>>>>>>>.")
+  const { state } = useLocation();
+  console.log(state)
   const navigate = useNavigate();
   const fillForm = () => {
-    navigate("/ownerfillform");
+    navigate("/ownerfillform", { state: { props }});
   };
   return (
     <>

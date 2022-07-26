@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
 import axios from "axios";
 
-const OwnerRentData = () => {
+const OwnerRentData = (props) => {
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(props)
   const [carDetails, setCarDetails] = useState({
     carBrand: "",
     carModel: "",

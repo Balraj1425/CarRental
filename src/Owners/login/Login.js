@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../login/Login.css";
 import pic from "../../components/images/giphy.gif";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,9 @@ import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
+  // const [validFormData, setValidFormData] = useState();
+  const [ validNavigate, setValidNavigate] = useState(false);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -18,6 +21,31 @@ export default function Login() {
       [name]: value,
     });
   };
+
+  // useEffect(() => {
+  //   axios.post("http://localhost:3001/ownerlogin",login).then((res) => {
+  //     console.log("111111111111111111")
+  //     debugger;
+  //     console.log(res)
+  //     setUserData(res.data);
+  //     if (res.status === 200) {
+  //       setValidNavigate(true);
+  //       navigate("/ownerhome", { state: { userData }});
+  //     } else {
+  //       // console.log(responce.data);
+  //     }
+  //   })
+  // }, [validFormData])
+
+  useEffect(() => {
+    console.log("for navigate")
+    if(validNavigate == true){
+      navigate("/ownerhome", { state: { userData }});
+    } else {
+      console.log("loading......")
+    }
+  }, [validNavigate])
+
   const handelClick = async function (e) {
     try {
       console.log("--------------------------");
@@ -28,13 +56,14 @@ export default function Login() {
         const responce = await axios.post(
           "http://localhost:3001/ownerlogin",
           login
-        );
-        console.log("logged in");
-        console.log(responce);
-        if (responce.status === 200) {
-          navigate("/ownerhome");
+          );
+          setUserData(responce);
+          console.log("logged in");
+          console.log(responce);
+          if (responce.status === 200) {
+            setValidNavigate(true);
         } else {
-          alert(responce.data.message);
+          console.log(responce.data);
         }
       }
     } catch (error) {

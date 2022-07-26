@@ -125,10 +125,10 @@ const CarDetails = new mongoose.Schema({
   //   type: Number,
   //   require: true,
   // },
-  // carOwnerID: {
-  //   type: Number,
-  //   require: true,
-  // },
+  carOwnerID: {
+    type: Number,
+    require: true,
+  },
   status: {
     type: Boolean,
     require: true,
@@ -468,12 +468,14 @@ app.post("/ownerlogin", async (req, res) => {
 
           //Creating cookies at login
           res.cookie("username", result.username, { httpOnly: true });
-          return res
-            .cookie("access_token", OwnerAuthToken, {
-              httpOnly: true,
-            })
-            .status(200)
-            .json({ message: "Logged in successfully 😊 👌" });
+          res.cookie("access_token", OwnerAuthToken, { httpOnly: true }).status(200);
+          res.send(result)
+          // return res
+          //   .cookie("access_token", OwnerAuthToken, {
+          //     httpOnly: true,
+          //   })
+          //   .status(200)
+          //   .json({ message: "Logged in successfully 😊 👌", data:result });
         } else {
           console.log(result);
           res.status(400).send({ message: "Incorrect Credentials" });
