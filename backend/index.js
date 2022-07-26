@@ -97,11 +97,11 @@ const OwnersDetails = new mongoose.Schema({
 
 //Owners Car Details
 const CarDetails = new mongoose.Schema({
-  carName: {
+  carBrand: {
     type: String,
     require: true,
   },
-  carImage: {
+  carModel: {
     type: String,
     require: true,
   },
@@ -117,21 +117,22 @@ const CarDetails = new mongoose.Schema({
     type: String,
     require: true,
   },
-  price: {
-    type: String,
-    require: true,
-  },
-  carId: {
-    type: Number,
-    require: true,
-  },
-  carOwnerID: {
-    type: Number,
-    require: true,
-  },
+  // price: {
+  //   type: String,
+  //   require: true,
+  // },
+  // carId: {
+  //   type: Number,
+  //   require: true,
+  // },
+  // carOwnerID: {
+  //   type: Number,
+  //   require: true,
+  // },
   status: {
     type: Boolean,
     require: true,
+    default: true,
   },
   carLocation: {
     type: String,
@@ -139,6 +140,14 @@ const CarDetails = new mongoose.Schema({
   },
   carType: {
     type: String,
+    require: true,
+  },
+  carNumber: {
+    type: String,
+    require: true,
+  },
+  kmDriven: {
+    type: Number,
     require: true,
   },
 });
@@ -303,6 +312,41 @@ app.get("/aboutus", async (req, res) => {
   }
 });
 
+//Routes to insert a new car
+app.post("/insertcar", async (req, res) => {
+  try {
+    if (
+      !req.body.carBrand ||
+      !req.body.carModel ||
+      !req.body.kmDriven ||
+      !req.body.fuelType ||
+      !req.body.transmissionType ||
+      !req.body.noOfSeats ||
+      !req.body.carLocation ||
+      !req.body.carType ||
+      !req.body.carNumber
+    ) {
+      console.log(req.body);
+
+      console.log("Please fill all the details");
+      res.json({ message: "Please fill all the details" });
+    } else {
+      const newCar = await new CARDETAILS(req.body);
+      newCar.save((err) => {
+        if (err) {
+          console.log("Error in saving to database");
+          res.json({ message: "Error in saving to database" });
+        } else {
+          console.log("Car Data saved successfully");
+          res.json({ message: "Car Data saved successfully" });
+        }
+      });
+    }
+  } catch (error) {
+    console.log("unable to insert");
+  }
+});
+
 //Routes for searching a car on basis of location at home page
 app.post("/searchCars", async (req, res) => {
   try {
@@ -358,8 +402,8 @@ app.get("/cardetailspage", async (req, res) => {
 
 app.post("/ownerregister", async (req, res) => {
   try {
-    const { name, email, phone, username, password } = req.body;
-    if (!name || !email || !phone || !username || !password) {
+    const { name, email, phone, password } = req.body;
+    if (!name || !email || !phone || !password) {
       console.log("Please fill all the Details ");
       res.status(422).send("Please fill all the Details");
     } else {

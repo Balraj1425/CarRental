@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
+import axios from "axios";
 
 const OwnerRentData = () => {
   const [carDetails, setCarDetails] = useState({
-    brand: "",
-    model: "",
-    kmdriven: "",
-    fueltype: "",
-    transmission: "",
-    seat: "",
-    location: "",
-    cartype: "",
-    carnumber: "",
+    carBrand: "",
+    carModel: "",
+    kmDriven: "",
+    fuelType: "",
+    transmissionType: "",
+    noOfSeats: "",
+    carLocation: "",
+    carType: "",
+    carNumber: "",
   });
 
   const handelChange = (e) => {
@@ -22,9 +23,34 @@ const OwnerRentData = () => {
     });
   };
 
-  const handelClick = (e) => {
-    e.preventDefault();
-    console.log("carDetails", carDetails);
+  const handelClick = async function (e) {
+    console.log("cardetails", carDetails);
+
+    try {
+      e.preventDefault();
+      if (
+        !carDetails.carBrand ||
+        !carDetails.carModel ||
+        !carDetails.kmDriven ||
+        !carDetails.fuelType ||
+        !carDetails.transmissionType ||
+        !carDetails.noOfSeats ||
+        !carDetails.carLocation ||
+        !carDetails.carType ||
+        !carDetails.carNumber
+      ) {
+        alert("Please fill all the Details");
+        console.log("here");
+      } else {
+        const responce = await axios.post(
+          "http://localhost:3001/insertcar",
+          carDetails
+        );
+        alert(responce.data.message);
+      }
+    } catch (error) {
+      alert("Unable to insert data");
+    }
   };
   return (
     <>
@@ -43,8 +69,8 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
-                      name="brand"
-                      value={carDetails.brand}
+                      name="carBrand"
+                      value={carDetails.carBrand}
                       onChange={handelChange}
                       id="formGroupExampleName"
                       placeholder="Enter car Brand/Company"
@@ -57,9 +83,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
-                      name="model"
+                      name="carModel"
                       onChange={handelChange}
-                      value={carDetails.model}
+                      value={carDetails.carModel}
                       id="formGroupusername"
                       placeholder="Enter car Model"
                     />
@@ -73,9 +99,9 @@ const OwnerRentData = () => {
                     <input
                       type="text"
                       class="form-control shadow-none"
-                      name="kmdriven"
+                      name="kmDriven"
                       onChange={handelChange}
-                      value={carDetails.kmdriven}
+                      value={carDetails.kmDriven}
                       id="formGroupExampleName"
                       placeholder="Enter car Km Driven"
                     />
@@ -86,7 +112,7 @@ const OwnerRentData = () => {
                     </label>
                     <select
                       class="form-select"
-                      name="fueltype"
+                      name="fuelType"
                       onChange={handelChange}
                       aria-label="Default select example"
                     >
@@ -105,7 +131,7 @@ const OwnerRentData = () => {
                     <select
                       class="form-select"
                       onChange={handelChange}
-                      name="transmission"
+                      name="transmissionType"
                       aria-label="Default select example"
                     >
                       <option selected>Choose Transmission</option>
@@ -120,7 +146,7 @@ const OwnerRentData = () => {
                     <select
                       class="form-select"
                       onChange={handelChange}
-                      name="seat"
+                      name="noOfSeats"
                       aria-label="Default select example"
                     >
                       <option selected>Choose No of Seats</option>
@@ -139,8 +165,8 @@ const OwnerRentData = () => {
                       type="text"
                       class="form-control shadow-none"
                       onChange={handelChange}
-                      name="location"
-                      value={carDetails.location}
+                      name="carLocation"
+                      value={carDetails.carLocation}
                       id="formGroupExampleName"
                       placeholder="Enter car Location"
                     />
@@ -152,7 +178,7 @@ const OwnerRentData = () => {
                     <select
                       class="form-select"
                       onChange={handelChange}
-                      name="cartype"
+                      name="carType"
                       aria-label="Default select example"
                     >
                       <option selected>Choose Car Type</option>
@@ -171,8 +197,8 @@ const OwnerRentData = () => {
                       type="text"
                       class="form-control shadow-none"
                       onChange={handelChange}
-                      name="carnumber"
-                      value={carDetails.carnumber}
+                      name="carNumber"
+                      value={carDetails.carNumber}
                       id="formGroupExampleName"
                       placeholder="Enter car Number Plate"
                     />

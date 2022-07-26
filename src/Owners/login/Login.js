@@ -1,9 +1,43 @@
 import React, { useState } from "react";
 import "../login/Login.css";
 import pic from "../../components/images/giphy.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+  };
+  const handelClick = async function (e) {
+    try {
+      e.preventDefault();
+      if (!login.email || !login.password) {
+        alert("Please fill the Details");
+      } else {
+        const responce = await axios.post(
+          "http://localhost:3001/ownerlogin",
+          login
+        );
+        console.log("i am here");
+
+        alert(responce.data.message);
+      }
+      navigate("/ownerhome");
+    } catch (error) {
+      alert("Unable to login");
+    }
+  };
+
   return (
     <div className="fullbody">
       <div className="blank"></div>
@@ -25,6 +59,9 @@ export default function Login() {
                 </label>
                 <input
                   type="text"
+                  name="email"
+                  value={login.email}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupusername"
                   placeholder="Enter your Email"
@@ -37,13 +74,20 @@ export default function Login() {
                 </label>
                 <input
                   type="password"
+                  name="password"
+                  value={login.password}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupExamplepassword"
                   placeholder="Enter your password"
                 />
               </div>
               <Link to="/home">
-                <button type="button" class="btn btn-success " onClick="">
+                <button
+                  type="button"
+                  class="btn btn-success "
+                  onClick={handelClick}
+                >
                   Login
                 </button>
               </Link>

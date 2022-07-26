@@ -1,9 +1,47 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../register/Register.css";
 import pic from "../../components/images/register.gif";
+import axios from "axios";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const [register, setRegister] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+    setRegister({
+      ...register,
+      [name]: value,
+    });
+  };
+  const registerOwner = async function (e) {
+    try {
+      e.preventDefault();
+      if (
+        !register.name ||
+        !register.email ||
+        !register.phone ||
+        !register.password
+      ) {
+        alert("Please fill all the details");
+      } else {
+        const responce = await axios.post(
+          "http://localhost:3001/ownerregister",
+          register
+        );
+        alert(responce.data.message);
+        navigate("/ownerlogin");
+      }
+    } catch (error) {
+      console.log("Unable to send request to backend");
+    }
+  };
+
   return (
     <div className="blankDiv">
       <div className="container ">
@@ -23,6 +61,9 @@ export default function SignUp() {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={register.name}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupExampleName"
                   placeholder="Enter your Name"
@@ -30,13 +71,16 @@ export default function SignUp() {
               </div>
               <div class="mb-3">
                 <label for="formGroupusername" class="form-label">
-                  Email/Username
+                  Email
                 </label>
                 <input
                   type="text"
+                  name="email"
+                  value={register.email}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupusername"
-                  placeholder="Enter your Email/Username"
+                  placeholder="Enter your Email"
                 />
               </div>
               <div class="mb-3">
@@ -45,6 +89,9 @@ export default function SignUp() {
                 </label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={register.phone}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupExamplePhone"
                   placeholder="Enter your Mobile No"
@@ -57,12 +104,19 @@ export default function SignUp() {
                 </label>
                 <input
                   type="password"
+                  name="password"
+                  value={register.password}
+                  onChange={handelChange}
                   class="form-control shadow-none"
                   id="formGroupExamplepassword"
                   placeholder="Enter your password"
                 />
               </div>
-              <button type="button" class="btn btn-success">
+              <button
+                type="button"
+                class="btn btn-success"
+                onClick={registerOwner}
+              >
                 Register
               </button>
               <div className="noAccount mt-5">
