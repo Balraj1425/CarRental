@@ -19,14 +19,19 @@ const SearchResult = (props) => {
   //   console.log("you are in home search ui");
   // });
 
-  const [filterData, setFilterData] = useState({
-    seats: "",
-    transmission: "",
-    cartypes: "",
-  });
+  const [seats, setSeats] = useState();
+  const [transmission, setTransmission] = useState();
+  const [cartypes, setCarTypes] = useState();
+
+  // const [filterData, setFilterData] = useState({
+  //   seats: "",
+  //   transmission: "",
+  //   cartypes: "",
+  // });
 
   // let details;
   useEffect(() => {
+    const filterData = {seats: seats, transmission: transmission, cartypes: cartypes};
     const filterParameters = { ...filterData, ...searchCarData };
     axios
       .post("http://localhost:3001/filterdata", filterParameters)
@@ -35,18 +40,27 @@ const SearchResult = (props) => {
 
         props.onFilterData(res.data);
       });
-  }, [filterData]);
+  }, [seats, transmission, cartypes]);
 
-  const handleChange = (event, name) => {
-    const { value } = event.target;
-    setFilterData({ ...filterData, [name]: value });
+  // const handleChange = (event, name) => {
+  //   const { value } = event.target;
+  //   setFilterData({ ...filterData, [name]: value });
 
-    // console.log(filterData);
-    // console.log(searchCarData);
-    props.onFilterData([]);
+  //   // console.log(filterData);
+  //   // console.log(searchCarData);
+  //   props.onFilterData([]);
 
-    // console.log(filterData);
-    
+  //   // console.log(filterData);
+  // };
+
+  const handleCarTypeChange = (event, newValue) => {
+    setCarTypes(newValue);
+  };
+  const handleSeatChange = (event, newValue) => {
+    setSeats(newValue);
+  };
+  const handleTransmissionChange = (event, newValue) => {
+    setTransmission(newValue);
   };
 
   return (
@@ -60,10 +74,10 @@ const SearchResult = (props) => {
               </label>
               <ToggleButtonGroup
                 color="primary"
-                value={filterData.cartypes}
+                value={cartypes}
                 className="filter-types"
                 exclusive
-                onChange={(event) => handleChange(event, "cartypes")}
+                onChange={handleCarTypeChange}
               >
                 <ToggleButton value="hatchback">HatchBack</ToggleButton>
                 <ToggleButton value="suv">SUV</ToggleButton>
@@ -74,10 +88,10 @@ const SearchResult = (props) => {
               </label>
               <ToggleButtonGroup
                 color="primary"
-                value={filterData.seats}
+                value={seats}
                 className="filter-types"
                 exclusive
-                onChange={(event) => handleChange(event, "seats")}
+                onChange={handleSeatChange}
               >
                 <ToggleButton value="5">5</ToggleButton>
                 <ToggleButton value="6">6</ToggleButton>
@@ -88,10 +102,10 @@ const SearchResult = (props) => {
               </label>
               <ToggleButtonGroup
                 color="primary"
-                value={filterData.transmission}
+                value={transmission}
                 className="filter-types mb-2"
                 exclusive
-                onChange={(event) => handleChange(event, "transmission")}
+                onChange={handleTransmissionChange}
               >
                 <ToggleButton value="Manual">Manual</ToggleButton>
                 <ToggleButton value="Automatic">Automatic</ToggleButton>

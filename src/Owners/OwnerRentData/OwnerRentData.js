@@ -22,6 +22,9 @@ const OwnerRentData = (props) => {
 
   const handelChange = (e) => {
     const { name, value } = e.target;
+    // if (name == "carNumber" || name == "carLocation"){
+    //   value = value.toUpperCase();
+    // }
     setCarDetails({
       ...carDetails,
       [name]: value,
@@ -55,6 +58,8 @@ const OwnerRentData = (props) => {
       ) {
         alert("Please fill all the Details");
       } else {
+        finalData.carLocation = finalData.carLocation.toUpperCase();
+        finalData.carNumber = finalData.carNumber.toUpperCase();
         const responce = await axios.post(
           "http://localhost:3001/insertcar",
           finalData

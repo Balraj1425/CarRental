@@ -20,20 +20,26 @@ const SearchCar = () => {
     });
   };
   const [resultCarData, setResultCarData] = useState([]);
+
   const searchCarHandler = (e) => {
     e.preventDefault();
-    setShowResult(true);
-    axios
+    if(searchCarData.datefrom == "" || searchCarData.dateto == "" || searchCarData.pickuplocation == ""){
+      alert("please enter all details")
+    }else{
+      searchCarData.pickuplocation = searchCarData.pickuplocation.toUpperCase();
+      axios
       .post("http://localhost:3001/searchCars", searchCarData)
       .then((res) => {
         // navigate("/searchResult");
         console.log(res.data);
         setResultCarData(res.data);
-      }).catch(err => {
-        // Handle error
-        console.log(err);
-        navigate("/login");
-      });
+        setShowResult(true);
+        }).catch(err => {
+          // Handle error
+          console.log(err);
+          navigate("/login");
+        });
+    }
   };
   const saveFilterDataHandler = (data) => {
     setResultCarData(data);
