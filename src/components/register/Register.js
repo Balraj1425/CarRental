@@ -3,6 +3,7 @@ import "../register/Register.css";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import pic from "../images/register.gif";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -49,11 +50,16 @@ export default function Register() {
     <>
       <div className="container-fluid firstregisterdiv">
         <div className="col-sm-12 d-flex container pt-2">
-          <div className="col-sm-7"></div>
-          <div className="col-sm-5 register-wrapper">
-            <h1 className="d-flex justify-content-center">Register</h1>
+          <div className="col-lg-7 col-md-12 col-sm-12">
+            <h1>Let's make renting easy</h1>
+            <div className="card Picdiv">
+              <img src={pic} alt="signupPic" />
+            </div>
+          </div>
+          <div className=" col-lg-5 col-md-12 col-sm-5 register-wrapper">
             <div className="card Rcard-body">
               <form>
+                <h3 className="register">Register</h3>
                 <div className="mb-3 form-input">
                   <label htmlFor="exampleInputname" className="form-label">
                     Name :

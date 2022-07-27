@@ -9,10 +9,7 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const OwnerHome = (props) => {
-  console.log(">>>>>>>>>>>>>>>>>>>>>>.");
   const { state } = useLocation();
-  console.log(state);
-  console.log(props);
 
   const navigate = useNavigate();
   const fillForm = () => {
