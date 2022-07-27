@@ -165,11 +165,21 @@ const CarDetails = new mongoose.Schema({
   },
 });
 
+const carMasterData = new mongoose.Schema({
+  brand:{
+    type: String
+  },
+  model:{
+    type: []
+  }
+})
+
 //Creating a Model of a schema into a Database
 
 const USERDETAILS = connection.model("usersdetail", UserDetails);
 const OWNERSDETAILS = connection.model("ownersdetail", OwnersDetails);
 const CARDETAILS = connection.model("cardetails", CarDetails);
+const CARMASTERDATA = connection.model("carmasterdatas", carMasterData);
 
 //middleware to validate user token
 const authorization = (req, res, next) => {
@@ -513,6 +523,37 @@ app.post("/ownerlogin", async (req, res) => {
     res.status(404).send("Failed to Login");
   }
 });
+
+app.get("/carBrands",(req, res)=>{
+  try {
+    CARMASTERDATA.find({},(err, result) => {
+      console.log(result)
+      if(result){
+        res.status(200).send(result);
+      } else{
+        res.status(400).send("error occured")
+      }
+    })
+  } catch (error) {
+    console.log("ERROR")
+    res.status(400).send("error occured")
+  }
+});
+
+app.post("/carModels", (req, res)=>{
+  try {
+    console.log(req.body);
+    CARMASTERDATA.findOne({brand: req.body.brand}, (err, result) => {
+      if(result){
+        res.status(200).send(result);
+      } else{
+        res.status(400).send("error occured")
+      }
+    })
+  } catch (error) {
+    res.status(400).send("error occured")
+  }
+})
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

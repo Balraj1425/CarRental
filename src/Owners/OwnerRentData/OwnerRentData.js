@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -7,6 +7,9 @@ const OwnerRentData = (props) => {
   const { state } = useLocation();
 
   const userData = state.state.userData;
+
+  const [carModels, setCarModels] = useState();
+  const [carBrands, setCarBrands] = useState();
 
   const [carDetails, setCarDetails] = useState({
     carBrand: "",
@@ -70,6 +73,35 @@ const OwnerRentData = (props) => {
       alert("Unable to insert data");
     }
   };
+
+  const loadCarBrands= async () => {
+    try {
+      await axios.get("http://localhost:3001/carBrands").then((res) => {
+      console.log("888888888888888888888888");
+      console.log(res);
+      setCarBrands(res.data);
+    });
+    } catch (error) {
+      console.log("error")
+    }
+  }
+  useEffect(() => {
+    loadCarBrands();
+    // axios.get("http://localhost:3001/carBrands").then((res) => {
+    //   console.log("888888888888888888888888");
+    //   console.log(res);
+    //   setCarBrands(res.data);
+    // });
+  }, []);
+
+  useEffect(() => {
+    axios.post("http://localhost:3001/carModels", carBrands).then((res) => {
+      console.log(res);
+
+      setCarModels(res);
+    });
+  }, [carBrands]);
+
   return (
     <>
       <div className="blankDiv">
@@ -84,7 +116,18 @@ const OwnerRentData = (props) => {
                     <label for="formGroupName" class="form-label">
                       Brand/Company
                     </label>
-                    <input
+                    <select
+                      class="form-select"
+                      name="carBrand"
+                      onChange={handelChange}
+                      aria-label="Default select example"
+                    >
+                      {carBrands &&
+                        carBrands.map((item) => {
+                          <option value={item.brand}>{item.brand}</option>;
+                        })}
+                    </select>
+                    {/* <input
                       type="text"
                       class="form-control shadow-none"
                       name="carBrand"
@@ -92,13 +135,21 @@ const OwnerRentData = (props) => {
                       onChange={handelChange}
                       id="formGroupExampleName"
                       placeholder="Enter car Brand/Company"
-                    />
+                    /> */}
                   </div>
                   <div class="mb-3 col-sm-6 margin">
                     <label for="formGroupusername" class="form-label">
                       Model
                     </label>
-                    <input
+                    <select
+                      class="form-select"
+                      name="carModel"
+                      onChange={handelChange}
+                      aria-label="Default select example"
+                    >
+                      {/* {carModels !== undefined && carModels.map((item)=>{<option value={item}>{item}</option>})} */}
+                    </select>
+                    {/* <input
                       type="text"
                       class="form-control shadow-none"
                       name="carModel"
@@ -106,7 +157,7 @@ const OwnerRentData = (props) => {
                       value={carDetails.carModel}
                       id="formGroupusername"
                       placeholder="Enter car Model"
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className="d-flex flex-col">

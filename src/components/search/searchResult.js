@@ -8,9 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const SearchResult = (props) => {
-  // console.log(props);
   const searchResults = props.resultCarData;
-  // console.log("final data");
   console.log("Final Result:", searchResults);
 
   const searchCarData = props.searchCarData; //chahiye
@@ -23,13 +21,6 @@ const SearchResult = (props) => {
   const [transmission, setTransmission] = useState();
   const [cartypes, setCarTypes] = useState();
 
-  // const [filterData, setFilterData] = useState({
-  //   seats: "",
-  //   transmission: "",
-  //   cartypes: "",
-  // });
-
-  // let details;
   useEffect(() => {
     const filterData = {seats: seats, transmission: transmission, cartypes: cartypes};
     const filterParameters = { ...filterData, ...searchCarData };
@@ -41,17 +32,6 @@ const SearchResult = (props) => {
         props.onFilterData(res.data);
       });
   }, [seats, transmission, cartypes]);
-
-  // const handleChange = (event, name) => {
-  //   const { value } = event.target;
-  //   setFilterData({ ...filterData, [name]: value });
-
-  //   // console.log(filterData);
-  //   // console.log(searchCarData);
-  //   props.onFilterData([]);
-
-  //   // console.log(filterData);
-  // };
 
   const handleCarTypeChange = (event, newValue) => {
     setCarTypes(newValue);
