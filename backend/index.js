@@ -558,7 +558,8 @@ app.get("/carBrands", (req, res) => {
 
 app.post("/carmodels", async (req, res) => {
   try {
-    console.log("req.body", req.body.carBrand);
+    console.log("req.body", req.body);
+    // console.log(req)
 
     if (!req.body) {
       res.status(400).json({ message: "Please select Brand" });

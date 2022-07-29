@@ -8,14 +8,10 @@ const OwnerRentData = (props) => {
 
   const userData = state.state.userData;
 
-  // const [carModels, setCarModels] = useState();
-  const [newCarBrands, setNewCarBrands] = useState({
-    carBrand: "",
-  });
   const [models, setmodels] = useState();
   const [carBrands, setCarBrands] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [modeldataLoaded, setmodelDataLoaded] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
   const [carDetails, setCarDetails] = useState({
     carBrand: "",
     carModel: "",
@@ -36,39 +32,6 @@ const OwnerRentData = (props) => {
     });
   };
 
-  const brandhandelChange = (e) => {
-    try {
-      const { name, value } = e.target;
-      setCarDetails({
-        ...carDetails,
-        [name]: value,
-      });
-      setNewCarBrands({
-        ...newCarBrands,
-        [name]: value,
-      });
-      getModelsValue();
-    } catch (error) {
-      console.log("Error ");
-    }
-  };
-
-  const getModelsValue = async function () {
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/carmodels",
-        newCarBrands
-      );
-      setmodels(response.data.model);
-      setmodelDataLoaded(true);
-      console.log(response);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-  console.log("newSar", newCarBrands);
-  console.log("models", models);
-
   let userFinalData = { ...userData };
   let newData = {
     name: userFinalData.name,
@@ -80,6 +43,8 @@ const OwnerRentData = (props) => {
   const finalData = { ...carDetails, ...newData };
 
   const handelClick = async function (e) {
+    console.log("+++++++++++")
+    console.log(finalData);
     try {
       e.preventDefault();
       if (
@@ -108,7 +73,7 @@ const OwnerRentData = (props) => {
     }
   };
 
-  const loadCarBrands = async () => {
+  useEffect(() => {
     try {
       axios.get("http://localhost:3001/carBrands").then((response) => {
         console.log(response);
@@ -118,13 +83,30 @@ const OwnerRentData = (props) => {
     } catch (error) {
       console.log("error");
     }
-  };
-  useEffect(() => {
-    loadCarBrands();
-    if (modeldataLoaded == true) {
-      getModelsValue();
-    }
   }, [dataLoaded]);
+
+  useEffect(() => {
+    console.log(selectedBrand)
+    if(selectedBrand != ""){
+      try {
+        axios.post("http://localhost:3001/carmodels", {"carBrand": selectedBrand}).then((response) => {
+          console.log(response);
+          setmodels(response.data.model);
+        })
+      } catch (error) {
+        console.log("error")
+      }
+    }
+  }, [selectedBrand])
+
+  const brandhandelChange = (e) => {
+    setSelectedBrand(e.target.value);
+    const { name, value } = e.target;
+    setCarDetails({
+      ...carDetails,
+      [name]: value,
+    });
+  };
 
   if (!dataLoaded) {
     return (
@@ -167,7 +149,7 @@ const OwnerRentData = (props) => {
                       </label>
                       <select
                         className="form-select"
-                        onChange={brandhandelChange}
+                        onChange={handelChange}
                         name="carModel"
                         aria-label="Default select example"
                       >
