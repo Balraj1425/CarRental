@@ -539,20 +539,6 @@ app.get("/carBrands", (req, res) => {
   }
 });
 
-// app.post("/carmodels", (req, res) => {
-//   try {
-//     console.log(req.body);
-//     CARMASTERDATA.findOne({ brand: req.body.carBrand }, (err, result) => {
-//       if (result) {
-//         res.status(200).send(result);
-//       } else {
-//         res.status(400).send("error occured");
-//       }
-//     });
-//   } catch (error) {
-//     res.status(400).send("error occured");
-//   }
-// });
 
 //Routes to find Model On basis of Car Brands
 
@@ -573,6 +559,19 @@ app.post("/carmodels", async (req, res) => {
     console.log("Error while fetching data from backend");
   }
 });
+
+app.post("/ownerProfileData", async (req, res) => {
+  try {
+    CARDETAILS.find({ownerId: req.body.ownerId}, (err, result) => {
+      if (result){
+        res.send(result);
+      }
+    })
+    // OWNERSDETAILS.findOne({ownerId: req.body.ownerId}, (err, result) => {}
+  } catch (error) {
+    
+  }
+})
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

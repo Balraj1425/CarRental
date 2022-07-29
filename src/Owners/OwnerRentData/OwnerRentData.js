@@ -43,8 +43,6 @@ const OwnerRentData = (props) => {
   const finalData = { ...carDetails, ...newData };
 
   const handelClick = async function (e) {
-    console.log("+++++++++++")
-    console.log(finalData);
     try {
       e.preventDefault();
       if (
@@ -86,17 +84,23 @@ const OwnerRentData = (props) => {
   }, [dataLoaded]);
 
   useEffect(() => {
-    console.log(selectedBrand)
-    if(selectedBrand != ""){
-      try {
-        axios.post("http://localhost:3001/carmodels", {"carBrand": selectedBrand}).then((response) => {
-          console.log(response);
-          setmodels(response.data.model);
-        })
-      } catch (error) {
-        console.log("error")
+    console.log(selectedBrand);
+    console.log(carBrands)
+    for (let i = 0; i < carBrands.length; i++){
+      if(carBrands[i].brand === selectedBrand){
+        setmodels(carBrands[i].model);
       }
     }
+    // if(selectedBrand != ""){
+    //   try {
+    //     axios.post("http://localhost:3001/carmodels", {"carBrand": selectedBrand}).then((response) => {
+    //       console.log(response);
+    //       setmodels(response.data.model);
+    //     })
+    //   } catch (error) {
+    //     console.log("error")
+    //   }
+    // }
   }, [selectedBrand])
 
   const brandhandelChange = (e) => {
