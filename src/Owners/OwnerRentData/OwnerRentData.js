@@ -9,10 +9,13 @@ const OwnerRentData = (props) => {
   const userData = state.state.userData;
 
   // const [carModels, setCarModels] = useState();
-  const [carBrands, setCarBrands] = useState();
+  const [newCarBrands, setNewCarBrands] = useState({
+    carBrand: "",
+  });
+  const [models, setmodels] = useState();
+  const [carBrands, setCarBrands] = useState({});
   const [dataLoaded, setDataLoaded] = useState(false);
-  console.log("................", carBrands);
-
+  const [modeldataLoaded, setmodelDataLoaded] = useState(false);
   const [carDetails, setCarDetails] = useState({
     carBrand: "",
     carModel: "",
@@ -24,7 +27,6 @@ const OwnerRentData = (props) => {
     carType: "",
     carNumber: "",
   });
-  console.log(carDetails);
 
   const handelChange = (e) => {
     const { name, value } = e.target;
@@ -34,19 +36,45 @@ const OwnerRentData = (props) => {
     });
   };
 
+  const brandhandelChange = (e) => {
+    try {
+      const { name, value } = e.target;
+      setCarDetails({
+        ...carDetails,
+        [name]: value,
+      });
+      setNewCarBrands({
+        ...newCarBrands,
+        [name]: value,
+      });
+      getModelsValue();
+    } catch (error) {
+      console.log("Error ");
+    }
+  };
+
+  const getModelsValue = async function () {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/carmodels",
+        newCarBrands
+      );
+      setmodels(response.data.model);
+      setmodelDataLoaded(true);
+      console.log(response);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  console.log("newSar", newCarBrands);
+  console.log("models", models);
+
   let userFinalData = { ...userData };
   let newData = {
     name: userFinalData.name,
     email: userFinalData.email,
     phone: userFinalData.phone,
     ownerId: userFinalData._id,
-  };
-
-  const populate = () => {
-    carBrands.map((items, index) => {
-      console.log("value", items.brand);
-      console.log("index", index);
-    });
   };
 
   const finalData = { ...carDetails, ...newData };
@@ -83,7 +111,6 @@ const OwnerRentData = (props) => {
   const loadCarBrands = async () => {
     try {
       axios.get("http://localhost:3001/carBrands").then((response) => {
-        console.log("888888888888888888888888");
         console.log(response);
         setCarBrands(response.data);
         setDataLoaded(true);
@@ -94,19 +121,10 @@ const OwnerRentData = (props) => {
   };
   useEffect(() => {
     loadCarBrands();
-
-    if (dataLoaded == true) {
-      populate();
+    if (modeldataLoaded == true) {
+      getModelsValue();
     }
   }, [dataLoaded]);
-
-  // useEffect(() => {
-  //   axios.post("http://localhost:3001/carModels", carBrands).then((res) => {
-  //     console.log(res);
-
-  //     setCarModels(res);
-  //   });
-  // }, [carBrands]);
 
   if (!dataLoaded) {
     return (
@@ -131,7 +149,7 @@ const OwnerRentData = (props) => {
                       </label>
                       <select
                         className="form-select"
-                        onChange={handelChange}
+                        onChange={brandhandelChange}
                         name="carBrand"
                         aria-label="Default select example"
                       >
@@ -142,31 +160,25 @@ const OwnerRentData = (props) => {
                           </option>
                         ))}
                       </select>
-
-                      {/* <input
-                      type="text"
-                      className="form-control shadow-none"
-                      name="carBrand"
-                      value={carDetails.carBrand}
-                      onChange={handelChange}
-                      id="formGroupExampleName"
-                      placeholder="Enter car Brand/Company"
-                    /> */}
                     </div>
                     <div className="mb-3 col-sm-6 margin">
                       <label htmlFor="formGroupusername" className="form-label">
                         Model
                       </label>
-
-                      <input
-                        type="text"
-                        className="form-control shadow-none"
+                      <select
+                        className="form-select"
+                        onChange={brandhandelChange}
                         name="carModel"
-                        onChange={handelChange}
-                        value={carDetails.carModel}
-                        id="formGroupusername"
-                        placeholder="Enter car Model"
-                      />
+                        aria-label="Default select example"
+                      >
+                        <option selected>Choose Your Model</option>
+                        {models &&
+                          models.map((item, index) => (
+                            <option key={index} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                      </select>
                     </div>
                   </div>
                   <div className="d-flex flex-col">

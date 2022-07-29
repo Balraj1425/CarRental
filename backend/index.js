@@ -166,13 +166,13 @@ const CarDetails = new mongoose.Schema({
 });
 
 const carMasterData = new mongoose.Schema({
-  brand:{
-    type: String
+  brand: {
+    type: String,
   },
-  model:{
-    type: []
-  }
-})
+  model: {
+    type: [],
+  },
+});
 
 //Creating a Model of a schema into a Database
 
@@ -524,36 +524,54 @@ app.post("/ownerlogin", async (req, res) => {
   }
 });
 
-app.get("/carBrands",(req, res)=>{
+app.get("/carBrands", (req, res) => {
   try {
-    CARMASTERDATA.find({},(err, result) => {
-      console.log(result)
-      if(result){
+    CARMASTERDATA.find({}, (err, result) => {
+      if (result) {
         res.status(200).send(result);
-      } else{
-        res.status(400).send("error occured")
+      } else {
+        res.status(400).send("error occured");
       }
-    })
+    });
   } catch (error) {
-    console.log("ERROR")
-    res.status(400).send("error occured")
+    console.log("ERROR");
+    res.status(400).send("error occured");
   }
 });
 
-app.post("/carModels", (req, res)=>{
+// app.post("/carmodels", (req, res) => {
+//   try {
+//     console.log(req.body);
+//     CARMASTERDATA.findOne({ brand: req.body.carBrand }, (err, result) => {
+//       if (result) {
+//         res.status(200).send(result);
+//       } else {
+//         res.status(400).send("error occured");
+//       }
+//     });
+//   } catch (error) {
+//     res.status(400).send("error occured");
+//   }
+// });
+
+//Routes to find Model On basis of Car Brands
+
+app.post("/carmodels", async (req, res) => {
   try {
-    console.log(req.body);
-    CARMASTERDATA.findOne({brand: req.body.brand}, (err, result) => {
-      if(result){
-        res.status(200).send(result);
-      } else{
-        res.status(400).send("error occured")
-      }
-    })
+    console.log("req.body", req.body.carBrand);
+
+    if (!req.body) {
+      res.status(400).json({ message: "Please select Brand" });
+    } else {
+      CARMASTERDATA.findOne({ brand: req.body.carBrand }, (err, result) => {
+        console.log(result);
+        res.send(result);
+      });
+    }
   } catch (error) {
-    res.status(400).send("error occured")
+    console.log("Error while fetching data from backend");
   }
-})
+});
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);
