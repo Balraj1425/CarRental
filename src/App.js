@@ -15,6 +15,7 @@ import ORegister from "../src/Owners/register/Register";
 import { useState } from "react";
 import OwnerHome from "./Owners/Home/OwnerHome";
 import OwnerRentData from "./Owners/OwnerRentData/OwnerRentData";
+import OwnerProfile from "./Owners/Profile/OwnerProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ function App() {
           <Route path="/ownerregister" element={<ORegister />}></Route>
           <Route path="/ownerhome" element={<OwnerHome />}></Route>
           <Route path="/ownerfillform" element={<OwnerRentData />}></Route>
+          <Route path="/ownerprofile" element={<OwnerProfile />}></Route>
         </Routes>
       </Router>
     </>

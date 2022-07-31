@@ -539,7 +539,6 @@ app.get("/carBrands", (req, res) => {
   }
 });
 
-
 //Routes to find Model On basis of Car Brands
 
 app.post("/carmodels", async (req, res) => {
@@ -560,18 +559,21 @@ app.post("/carmodels", async (req, res) => {
   }
 });
 
-app.post("/ownerProfileData", async (req, res) => {
+//Owners Profile Data
+
+app.get("/ownerProfileData", async (req, res) => {
   try {
-    CARDETAILS.find({ownerId: req.body.ownerId}, (err, result) => {
-      if (result){
+    CARDETAILS.find({ ownerId: req.body.ownerId }, (err, result) => {
+      if (result) {
         res.send(result);
+      } else {
+        res.status(400).json({ message: "Error in fetching profile data" });
       }
-    })
-    // OWNERSDETAILS.findOne({ownerId: req.body.ownerId}, (err, result) => {}
+    });
   } catch (error) {
-    
+    res.status(400).json({ message: "Error in fetching profile data" });
   }
-})
+});
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

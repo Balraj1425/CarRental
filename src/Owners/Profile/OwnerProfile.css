@@ -1,0 +1,37 @@
+.ProfileImageDiv {
+  width: 100%;
+  text-align: center;
+}
+.profilepic {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+.NameDiv {
+  text-align: center;
+}
+.card-wrapper {
+  padding: 20px;
+  width: 100%;
+}
+.card-wrapper span {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 600;
+  font-style: oblique;
+  color: rgb(165, 165, 165);
+}
+.CarImageDiv {
+  height: 100px;
+  width: 150px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.carImage {
+  height: 100px;
+  width: 150px;
+  border-radius: 10px;
+}
+.CarDetails {
+  margin-left: 10px;
+  width: 100%;
+}
