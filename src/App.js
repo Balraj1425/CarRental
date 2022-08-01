@@ -19,13 +19,27 @@ import OwnerProfile from "./Owners/Profile/OwnerProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInOwnerData, setLoggedInOwnerData] = useState();
+  const [userType, setUserType] = useState();
+
   const loginHandler = (data) => {
-    setIsLoggedIn(data);
+    setIsLoggedIn(data.isLoggedIn);
+    setLoggedInOwnerData(data);
+    if(data.login == "owner"){
+      setUserType("owner");
+    } else {
+      setUserType("user")
+    }
   };
+
+  const logoutHandler = (data) => {
+    setIsLoggedIn(data)
+  }
+
   return (
     <>
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} />
+        <Navbar isLoggedIn={isLoggedIn} loggedInOwnerData={loggedInOwnerData} userType={userType} onLogout={logoutHandler}/>
         <Routes>
           <Route
             exact
@@ -43,7 +57,7 @@ function App() {
           <Route path="/searchresult" element={<SearchResult />}></Route>
           <Route path="/cardetailspage" element={<CarDetailsPage />}></Route>
           <Route path="/alllogin" element={<Alllogin />}></Route>
-          <Route path="/ownerlogin" element={<OLogin />}></Route>
+          <Route path="/ownerlogin" element={<OLogin onLogIn={loginHandler}/>}></Route>
           <Route path="/ownerregister" element={<ORegister />}></Route>
           <Route path="/ownerhome" element={<OwnerHome />}></Route>
           <Route path="/ownerfillform" element={<OwnerRentData />}></Route>

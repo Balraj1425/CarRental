@@ -23,7 +23,9 @@ export default function Login(props) {
 
       sessionStorage.setItem("username", res.data.message.username);
       sessionStorage.setItem("access_token", res.data.message.access_token);
-      props.onLogIn(true);
+      res.data.login = "user";
+      res.data.isLoggedIn = true;
+      props.onLogIn(res.data);
       navigate("/home");
     });
   };

@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../images/logo.jpg";
 
 import "../navbar/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar(props) {
-  console.log(props);
+  const navigate = useNavigate();
+  console.log("nav loaded")
+  useEffect(() => {
+    console.log(props);
+  }, [props])
+
+  const logoutHandler = () => {
+    props.onLogout(false);
+    if(props.userType == "owner"){
+      navigate("/ownerlogin")
+    } else {
+      navigate("/login")
+    }
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  navbar-bgcolor">
@@ -42,11 +56,13 @@ export default function Navbar(props) {
                   <span className="navbar-textcolor "> About US</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/ownerprofile">
-                  <span className="navbar-textcolor "> Profile</span>
-                </Link>
-              </li>
+              {props.isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/ownerprofile">
+                    <span className="navbar-textcolor "> Profile</span>
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link className="nav-link" to="/contactus">
                   <span className="navbar-textcolor "> Contact US</span>
@@ -61,9 +77,9 @@ export default function Navbar(props) {
               )}
               {props.isLoggedIn && (
                 <li className="nav-item">
-                  <Link className="nav-link" to="">
-                    <span className="navbar-textcolor ">LogOut</span>
-                  </Link>
+                    <span className="navbar-textcolor" onClick={logoutHandler}>LogOut</span>
+                  {/* <Link className="nav-link" to="">
+                  </Link> */}
                 </li>
               )}
             </ul>

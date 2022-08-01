@@ -4,7 +4,7 @@ import pic from "../../components/images/giphy.gif";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Login() {
+export default function Login(props) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [validFormData, setValidFormData] = useState(false);
@@ -25,10 +25,11 @@ export default function Login() {
   useEffect(() => {
     if (validFormData == true) {
       axios.post("http://localhost:3001/ownerlogin", login).then((res) => {
-        console.log("111111111111111111");
-
         console.log(res);
+        res.data.login = "owner";
+        res.data.isLoggedIn = true;
         setUserData(res.data);
+        props.onLogIn(res.data);
         if (res.status === 200) {
           setValidNavigate(true);
         }
