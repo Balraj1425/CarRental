@@ -8,6 +8,7 @@ import carImage from "../../components/images/creta.jpg";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useState, useEffect } from "react";
 
 export default function OtherDetails(props) {
   const [expanded, setExpanded] = React.useState(false);
@@ -16,8 +17,14 @@ export default function OtherDetails(props) {
     setExpanded(isExpanded ? panel : false);
   };
 
-  console.log("inside accordian")
-  console.log(props)
+  const [ownerCarData, setOwnerCarData] = useState();
+
+  useEffect(() => {
+    setOwnerCarData(props.ownerCarDetails);
+  }, []);
+
+  console.log("inside accordian");
+  console.log(props);
   return (
     <div>
       <Accordion
@@ -40,12 +47,16 @@ export default function OtherDetails(props) {
             <div className="card card-wrapper">
               <span>FullName:&nbsp;&nbsp; {props.loggedInUserData.name}</span>
               <span>
-                Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.loggedInUserData.phone}
+                Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {props.loggedInUserData.phone}
               </span>
               <span>
-                Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.loggedInUserData.email}
+                Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {props.loggedInUserData.email}
               </span>
-              <span>OwnerId:&nbsp;&nbsp;&nbsp;{props.loggedInUserData._id}</span>
+              <span>
+                OwnerId:&nbsp;&nbsp;&nbsp;{props.loggedInUserData._id}
+              </span>
               {/* <span>Password:&nbsp;&nbsp; ******************</span> */}
             </div>
           </Typography>
@@ -67,34 +78,42 @@ export default function OtherDetails(props) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            <div className="card card-wrapper">
-              <div className="d-flex">
-                <div className="CarImageDiv">
-                  <img
-                    src={carImage}
-                    alt="Car Image"
-                    className="carImage"
-                  ></img>
-                </div>
-                <div className="d-flex flex-column  justify-content-around CarDetails">
-                  <div className="d-flex flex-row justify-content-around">
-                    <span>Brand: car Brand</span>
-                    <span>Model: car Model</span>
-                    <span>Type: car type</span>
+          {ownerCarData &&
+            ownerCarData.map((item) => {
+              return (
+                <Typography>
+                  <div className="card card-wrapper">
+                    <div className="d-flex">
+                      <div className="CarImageDiv">
+                        <img
+                          src={carImage}
+                          alt="Car Image"
+                          className="carImage"
+                        ></img>
+                      </div>
+                      <div className="d-flex flex-column  justify-content-around CarDetails">
+                        <div className="d-flex flex-row justify-content-around">
+                          <span>Brand:{item.carBrand}</span>
+                          <span>Model:{item.carModel}</span>
+                          <span>Type: {item.carType}</span>
+                        </div>
+                        <div className="d-flex flex-row  justify-content-around">
+                          <span>FuelType: {item.fuelType}</span>
+                          <span>Transmission: {item.transmissionType}</span>
+                          <span>Vehichle No: {item.carNumber}</span>
+                        </div>
+                        <div className="d-flex flex-row justify-content-around">
+                          <span>
+                            Status: {item.status ? "Available" : "Booked"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="d-flex flex-row  justify-content-around">
-                    <span>FuelType: car fuelType</span>
-                    <span>transmission: Automatic</span>
-                    <span>Vehichle No: carNumber</span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-around">
-                    <span>Status: car status</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Typography>
+                  ;
+                </Typography>
+              );
+            })}
         </AccordionDetails>
       </Accordion>
       <Accordion
