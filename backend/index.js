@@ -411,12 +411,12 @@ app.post("/filterdata", async (req, res) => {
     console.log(queryParam);
     CARDETAILS.find({ $and: queryParam }, (err, result) => {
       console.log("filtered data");
-      console.log(result);
+      // console.log(result);
       if (result) {
         res.send(result);
       }
     });
-    console.log(req.body);
+    // console.log(req.body);
   } catch (error) {
     console.log("Error Occured");
   }
@@ -485,7 +485,7 @@ app.post("/ownerlogin", async (req, res) => {
 
           OwnerAuthToken = jwt.sign({ _id: result._id }, jwttokenKey);
           result.tokens = OwnerAuthToken;
-          console.log("result", result);
+          // console.log("result", result);
 
           result.save((err) => {
             if (err) {
@@ -509,7 +509,7 @@ app.post("/ownerlogin", async (req, res) => {
           //   .status(200)
           //   .json({ message: "Logged in successfully 😊 👌", data:result });
         } else {
-          console.log(result);
+          // console.log(result);
           res.status(400).send({ message: "Incorrect Credentials" });
         }
       } else {
@@ -543,14 +543,13 @@ app.get("/carBrands", (req, res) => {
 
 app.post("/carmodels", async (req, res) => {
   try {
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     // console.log(req)
 
     if (!req.body) {
       res.status(400).json({ message: "Please select Brand" });
     } else {
       CARMASTERDATA.findOne({ brand: req.body.carBrand }, (err, result) => {
-        console.log(result);
         res.send(result);
       });
     }
@@ -561,7 +560,9 @@ app.post("/carmodels", async (req, res) => {
 
 //Owners Profile Data
 
-app.get("/ownerprofilecardetails", async (req, res) => {
+app.post("/ownerprofilecardetails", async (req, res) => {
+  console.log("*************************************************************")
+  console.log(req.body)
   try {
     CARDETAILS.find({ ownerId: req.body.ownerId }, (err, result) => {
       if (result) {
@@ -575,19 +576,19 @@ app.get("/ownerprofilecardetails", async (req, res) => {
   }
 });
 
-app.get("/ownerprofiledetails", async (req, res) => {
-  try {
-    OWNERSDETAILS.findOne({ email: req.body.email }, (err, result) => {
-      if (result) {
-        res.send(result);
-      } else {
-        res.status(400).json({ message: "Error in fetching profile data" });
-      }
-    });
-  } catch (error) {
-    res.status(400).json({ message: "Error in fetching profile data" });
-  }
-});
+// app.get("/ownerprofiledetails", async (req, res) => {
+//   try {
+//     OWNERSDETAILS.findOne({ email: req.body.email }, (err, result) => {
+//       if (result) {
+//         res.send(result);
+//       } else {
+//         res.status(400).json({ message: "Error in fetching profile data" });
+//       }
+//     });
+//   } catch (error) {
+//     res.status(400).json({ message: "Error in fetching profile data" });
+//   }
+// });
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);
