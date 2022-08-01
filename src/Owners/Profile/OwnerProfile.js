@@ -3,7 +3,7 @@ import Profilepic from "../Images/ProfileImage/profile.webp";
 import "../Profile/OwnerProfile.css";
 import OtherDetails from "./OtherDetails";
 
-const OwnerProfile = () => {
+const OwnerProfile = (props) => {
   return (
     <>
       <div className="container d-flex flex-column">
@@ -12,11 +12,11 @@ const OwnerProfile = () => {
         </div>
         <div className="NameDiv">
           <strong>
-            <h2>Vineet Kumar Dixit</h2>
+            <h2>{props.loggedInUserData.name}</h2>
           </strong>
         </div>
         <div>
-          <OtherDetails />
+          <OtherDetails loggedInUserData={props.loggedInUserData} />
         </div>
       </div>
     </>

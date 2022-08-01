@@ -9,13 +9,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-export default function OtherDetails() {
+export default function OtherDetails(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  console.log("inside accordian")
+  console.log(props)
   return (
     <div>
       <Accordion
@@ -36,15 +38,15 @@ export default function OtherDetails() {
         <AccordionDetails>
           <Typography>
             <div className="card card-wrapper">
-              <span>FullName:&nbsp;&nbsp; Vineet Kumar Dixit</span>
+              <span>FullName:&nbsp;&nbsp; {props.loggedInUserData.name}</span>
               <span>
-                Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9984732982
+                Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.loggedInUserData.phone}
               </span>
               <span>
-                Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vineetdixit@gmail.com
+                Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{props.loggedInUserData.email}
               </span>
-              <span>OwnerId:&nbsp;&nbsp;&nbsp;456789876546789087654</span>
-              <span>Password:&nbsp;&nbsp; ******************</span>
+              <span>OwnerId:&nbsp;&nbsp;&nbsp;{props.loggedInUserData._id}</span>
+              {/* <span>Password:&nbsp;&nbsp; ******************</span> */}
             </div>
           </Typography>
         </AccordionDetails>

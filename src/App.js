@@ -19,12 +19,12 @@ import OwnerProfile from "./Owners/Profile/OwnerProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedInOwnerData, setLoggedInOwnerData] = useState();
+  const [loggedInUserData, setLoggedInUserData] = useState();
   const [userType, setUserType] = useState();
 
   const loginHandler = (data) => {
     setIsLoggedIn(data.isLoggedIn);
-    setLoggedInOwnerData(data);
+    setLoggedInUserData(data);
     if(data.login == "owner"){
       setUserType("owner");
     } else {
@@ -39,7 +39,7 @@ function App() {
   return (
     <>
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} loggedInOwnerData={loggedInOwnerData} userType={userType} onLogout={logoutHandler}/>
+        <Navbar isLoggedIn={isLoggedIn} loggedInUserData={loggedInUserData} userType={userType} onLogout={logoutHandler}/>
         <Routes>
           <Route
             exact
@@ -61,7 +61,7 @@ function App() {
           <Route path="/ownerregister" element={<ORegister />}></Route>
           <Route path="/ownerhome" element={<OwnerHome />}></Route>
           <Route path="/ownerfillform" element={<OwnerRentData />}></Route>
-          <Route path="/ownerprofile" element={<OwnerProfile />}></Route>
+          <Route path="/ownerprofile" element={<OwnerProfile loggedInUserData={loggedInUserData}/>}></Route>
         </Routes>
       </Router>
     </>

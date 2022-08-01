@@ -56,7 +56,7 @@ export default function Navbar(props) {
                   <span className="navbar-textcolor "> About US</span>
                 </Link>
               </li>
-              {props.isLoggedIn && (
+              {props.isLoggedIn && props.userType == "owner" && (
                 <li className="nav-item">
                   <Link className="nav-link" to="/ownerprofile">
                     <span className="navbar-textcolor "> Profile</span>
@@ -77,9 +77,7 @@ export default function Navbar(props) {
               )}
               {props.isLoggedIn && (
                 <li className="nav-item">
-                    <span className="navbar-textcolor" onClick={logoutHandler}>LogOut</span>
-                  {/* <Link className="nav-link" to="">
-                  </Link> */}
+                    <span className="nav-link navbar-textcolor" onClick={logoutHandler}>LogOut</span>
                 </li>
               )}
             </ul>
