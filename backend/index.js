@@ -561,9 +561,23 @@ app.post("/carmodels", async (req, res) => {
 
 //Owners Profile Data
 
-app.get("/ownerProfileData", async (req, res) => {
+app.get("/ownerprofilecardetails", async (req, res) => {
   try {
     CARDETAILS.find({ ownerId: req.body.ownerId }, (err, result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(400).json({ message: "Error in fetching profile data" });
+      }
+    });
+  } catch (error) {
+    res.status(400).json({ message: "Error in fetching profile data" });
+  }
+});
+
+app.get("/ownerprofiledetails", async (req, res) => {
+  try {
+    OWNERSDETAILS.findOne({ email: req.body.email }, (err, result) => {
       if (result) {
         res.send(result);
       } else {

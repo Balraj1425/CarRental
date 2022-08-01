@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Home/OwnerHome.css";
 import image from "../../components/images/hero.png";
 import dealer from "../../components/images/dealers.jpg";
@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const OwnerHome = (props) => {
+const OwnerHome = () => {
   const { state } = useLocation();
+  console.log("userdata:", state);
 
   const navigate = useNavigate();
   const fillForm = () => {

@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import carImage from "../../components/images/creta.jpg";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 export default function OtherDetails() {
   const [expanded, setExpanded] = React.useState(false);
@@ -110,32 +112,39 @@ export default function OtherDetails() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            <TextField
-              id="outlined-name"
-              label="Name  "
-              //   value={name}
-              //   onChange={handleChange}
-            />
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Personal data
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-            sit amet egestas eros, vitae egestas augue. Duis vel est augue.
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="outlined-name"
+                label="name  "
+
+                //   value={name}
+                //   onChange={handleChange}
+              />
+              <TextField
+                id="outlined-name"
+                label="phone "
+
+                //   value={name}
+                //   onChange={handleChange}
+              />
+              <TextField
+                id="outlined-name"
+                label="email "
+
+                //   value={name}
+                //   onChange={handleChange}
+              />
+              <TextField
+                id="outlined-name"
+                label="password  "
+
+                //   value={name}
+                //   onChange={handleChange}
+              />
+              <Button variant="contained" color="success">
+                Update
+              </Button>
+            </Stack>
           </Typography>
         </AccordionDetails>
       </Accordion>

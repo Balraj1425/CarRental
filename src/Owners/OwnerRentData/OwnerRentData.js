@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../OwnerRentData/OwnerRentData.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const OwnerRentData = (props) => {
+const OwnerRentData = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const userData = state.state.userData;
 
@@ -65,6 +66,7 @@ const OwnerRentData = (props) => {
           finalData
         );
         alert(responce.data.message);
+        navigate("/ownerhome");
       }
     } catch (error) {
       alert("Unable to insert data");
@@ -85,9 +87,9 @@ const OwnerRentData = (props) => {
 
   useEffect(() => {
     console.log(selectedBrand);
-    console.log(carBrands)
-    for (let i = 0; i < carBrands.length; i++){
-      if(carBrands[i].brand === selectedBrand){
+    console.log(carBrands);
+    for (let i = 0; i < carBrands.length; i++) {
+      if (carBrands[i].brand === selectedBrand) {
         setmodels(carBrands[i].model);
       }
     }
@@ -101,7 +103,7 @@ const OwnerRentData = (props) => {
     //     console.log("error")
     //   }
     // }
-  }, [selectedBrand])
+  }, [selectedBrand]);
 
   const brandhandelChange = (e) => {
     setSelectedBrand(e.target.value);
