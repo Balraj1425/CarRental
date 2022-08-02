@@ -561,8 +561,8 @@ app.post("/carmodels", async (req, res) => {
 //Owners Profile Data
 
 app.post("/ownerprofilecardetails", async (req, res) => {
-  console.log("*************************************************************")
-  console.log(req.body)
+  console.log("*************************************************************");
+  console.log(req.body);
   try {
     CARDETAILS.find({ ownerId: req.body.ownerId }, (err, result) => {
       if (result) {
@@ -576,19 +576,62 @@ app.post("/ownerprofilecardetails", async (req, res) => {
   }
 });
 
-// app.get("/ownerprofiledetails", async (req, res) => {
-//   try {
-//     OWNERSDETAILS.findOne({ email: req.body.email }, (err, result) => {
-//       if (result) {
-//         res.send(result);
-//       } else {
-//         res.status(400).json({ message: "Error in fetching profile data" });
-//       }
-//     });
-//   } catch (error) {
-//     res.status(400).json({ message: "Error in fetching profile data" });
-//   }
-// });
+//Routes for OwnersDetails Update
+
+app.put("/updateDetails/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("id from frontend", id);
+
+    // id = "62e01bedd0378237140d44db";
+    OWNERSDETAILS.findByIdAndUpdate(
+      { _id: id },
+      { name: req.body.name, email: req.body.email, phone: req.body.phone },
+      (err, result) => {
+        if (result) {
+          // console.log("Result", result);
+          res.send(result);
+        }
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ message: "Error in fetching profile data" });
+  }
+});
+
+//Routes to Change Owner Password
+
+app.put("/changepassword/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let newPassword = req.body.password;
+    newPassword = crypto
+      .createHash("sha256")
+      .update(req.body.password)
+      .digest("hex");
+    // console.log("req.param", req.params);
+    console.log(id);
+    console.log(req.body.password);
+
+    OWNERSDETAILS.findByIdAndUpdate(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (result) {
+          console.log(newPassword);
+          res.send("Data Updated");
+        } else {
+          console.log("error", newPassword);
+          res.status(400).json({ message: "Error in fetching profile data" });
+        }
+      }
+    );
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error in fetching profile data in catch" });
+  }
+});
 
 app.listen(port, () => {
   console.log("Server has been started at port  " + port);

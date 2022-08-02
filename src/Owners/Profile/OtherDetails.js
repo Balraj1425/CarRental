@@ -9,20 +9,82 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function OtherDetails(props) {
   const [expanded, setExpanded] = React.useState(false);
+  const [ownerCarData, setOwnerCarData] = useState();
+  // const [dataUpdated, setdataUpdated] = useState(false);
+  const [updateData, setUpdateData] = useState({
+    name: props.loggedInUserData.name,
+    email: props.loggedInUserData.email,
+    phone: props.loggedInUserData.phone,
+  });
+  const [changePassword, setchangePassword] = useState({ password: "" });
+  // console.log("UpdatedData", updateData);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+  const handleChange2 = (event) => {
+    const { name, value } = event.target;
+    setUpdateData({
+      ...updateData,
+      [name]: value,
+    });
+    console.log("event", event.target);
+  };
 
-  const [ownerCarData, setOwnerCarData] = useState();
+  const passwordhandleChange = (e) => {
+    const { name, value } = e.target;
+    setchangePassword({
+      ...changePassword,
+      [name]: value,
+    });
+  };
 
   useEffect(() => {
     setOwnerCarData(props.ownerCarDetails);
   }, []);
 
+  const UpdateOwnerData = () => {
+    axios
+      .put(
+        `http://localhost:3001/updateDetails/${props.loggedInUserData._id}`,
+        updateData
+      )
+      .then((res) => {
+        // if (res) {
+        //   setdataUpdated(true);
+        // }
+        // console.log("res", res);
+      });
+  };
+
+  const updatePassword = (e) => {
+    e.preventDefault();
+    try {
+      if (changePassword.password === "") {
+        alert("Please enter password to change");
+      } else {
+        axios
+          .put(
+            `http://localhost:3001/changepassword/${props.loggedInUserData._id}`,
+            changePassword
+          )
+          .then((res) => {
+            // console.log("res", res);
+            alert("Password succesfully Changed");
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   UpdateOwnerData();
+  // }, [dataUpdated]);
   console.log("inside accordian");
   console.log(props);
   return (
@@ -57,7 +119,6 @@ export default function OtherDetails(props) {
               <span>
                 OwnerId:&nbsp;&nbsp;&nbsp;{props.loggedInUserData._id}
               </span>
-              {/* <span>Password:&nbsp;&nbsp; ******************</span> */}
             </div>
           </Typography>
         </AccordionDetails>
@@ -79,9 +140,9 @@ export default function OtherDetails(props) {
         </AccordionSummary>
         <AccordionDetails>
           {ownerCarData &&
-            ownerCarData.map((item) => {
+            ownerCarData.map((item, index) => {
               return (
-                <Typography>
+                <Typography key={index}>
                   <div className="card card-wrapper">
                     <div className="d-flex">
                       <div className="CarImageDiv">
@@ -136,34 +197,74 @@ export default function OtherDetails(props) {
             <Stack direction="row" spacing={2}>
               <TextField
                 id="outlined-name"
-                label="name  "
-
-                //   value={name}
-                //   onChange={handleChange}
+                label="name"
+                name="name"
+                value={updateData.name}
+                onChange={handleChange2}
               />
               <TextField
                 id="outlined-name"
                 label="phone "
-
-                //   value={name}
-                //   onChange={handleChange}
+                name="phone"
+                value={updateData.phone}
+                onChange={handleChange2}
               />
               <TextField
                 id="outlined-name"
                 label="email "
-
-                //   value={name}
-                //   onChange={handleChange}
+                name="email"
+                value={updateData.email}
+                onChange={handleChange2}
               />
               <TextField
                 id="outlined-name"
-                label="password  "
-
-                //   value={name}
-                //   onChange={handleChange}
+                label="password"
+                name="password"
+                value={updateData.password}
+                onChange={handleChange2}
               />
-              <Button variant="contained" color="success">
+              <Button
+                variant="contained"
+                color="success"
+                onClick={UpdateOwnerData}
+              >
                 Update
+              </Button>
+            </Stack>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <Typography sx={{ width: "33%", flexShrink: 0 }}>
+            <div className="card-wrapper">
+              <span>Change Password</span>
+            </div>
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                id="outlined-name"
+                label="password"
+                name="password"
+                value={changePassword.password}
+                onChange={passwordhandleChange}
+              />
+              <Button
+                variant="contained"
+                color="success"
+                onClick={updatePassword}
+              >
+                Change Password
               </Button>
             </Stack>
           </Typography>

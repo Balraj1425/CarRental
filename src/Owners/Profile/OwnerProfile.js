@@ -34,7 +34,7 @@ const OwnerProfile = (props) => {
             <h2>{props.loggedInUserData.name}</h2>
           </strong>
         </div>
-        <div>
+        <div className="accordian">
           <OtherDetails
             loggedInUserData={props.loggedInUserData}
             ownerCarDetails={ownerCarDetails}
