@@ -35,10 +35,12 @@ const OwnerProfile = (props) => {
           </strong>
         </div>
         <div className="accordian">
-          <OtherDetails
-            loggedInUserData={props.loggedInUserData}
-            ownerCarDetails={ownerCarDetails}
-          />
+          {ownerCarDetails && (
+            <OtherDetails
+              loggedInUserData={props.loggedInUserData}
+              ownerCarDetails={ownerCarDetails}
+            />
+          )}
         </div>
       </div>
     </>
