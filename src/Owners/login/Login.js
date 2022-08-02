@@ -25,13 +25,17 @@ export default function Login(props) {
   useEffect(() => {
     if (validFormData == true) {
       axios.post("http://localhost:3001/ownerlogin", login).then((res) => {
-        console.log(res);
-        res.data.login = "owner";
-        res.data.isLoggedIn = true;
-        setUserData(res.data);
-        props.onLogIn(res.data);
-        if (res.status === 200) {
-          setValidNavigate(true);
+        if (res) {
+          console.log(res);
+          res.data.login = "owner";
+          res.data.isLoggedIn = true;
+          setUserData(res.data);
+          props.onLogIn(res.data);
+          if (res.status === 200) {
+            setValidNavigate(true);
+          }
+        } else {
+          alert("Wrong Credentials");
         }
       });
     }

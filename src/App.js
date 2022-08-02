@@ -25,27 +25,28 @@ function App() {
   const loginHandler = (data) => {
     setIsLoggedIn(data.isLoggedIn);
     setLoggedInUserData(data);
-    if(data.login == "owner"){
+    if (data.login == "owner") {
       setUserType("owner");
     } else {
-      setUserType("user")
+      setUserType("user");
     }
   };
 
   const logoutHandler = (data) => {
-    setIsLoggedIn(data)
-  }
+    setIsLoggedIn(data);
+  };
 
   return (
     <>
       <Router>
-        <Navbar isLoggedIn={isLoggedIn} loggedInUserData={loggedInUserData} userType={userType} onLogout={logoutHandler}/>
+        <Navbar
+          isLoggedIn={isLoggedIn}
+          loggedInUserData={loggedInUserData}
+          userType={userType}
+          onLogout={logoutHandler}
+        />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Login onLogIn={loginHandler} />}
-          ></Route>
+          <Route exact path="/" element={<Alllogin />}></Route>
           <Route
             path="/login"
             element={<Login onLogIn={loginHandler} />}
@@ -57,11 +58,17 @@ function App() {
           <Route path="/searchresult" element={<SearchResult />}></Route>
           <Route path="/cardetailspage" element={<CarDetailsPage />}></Route>
           <Route path="/alllogin" element={<Alllogin />}></Route>
-          <Route path="/ownerlogin" element={<OLogin onLogIn={loginHandler}/>}></Route>
+          <Route
+            path="/ownerlogin"
+            element={<OLogin onLogIn={loginHandler} />}
+          ></Route>
           <Route path="/ownerregister" element={<ORegister />}></Route>
           <Route path="/ownerhome" element={<OwnerHome />}></Route>
           <Route path="/ownerfillform" element={<OwnerRentData />}></Route>
-          <Route path="/ownerprofile" element={<OwnerProfile loggedInUserData={loggedInUserData}/>}></Route>
+          <Route
+            path="/ownerprofile"
+            element={<OwnerProfile loggedInUserData={loggedInUserData} />}
+          ></Route>
         </Routes>
       </Router>
     </>
