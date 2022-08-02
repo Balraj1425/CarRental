@@ -633,7 +633,7 @@ app.put("/changepassword/:id", async (req, res) => {
   }
 });
 
-app.post("/ownerprofiledata", async (req, res) => {
+app.post("/userprofiledata", async (req, res) => {
   try {
     if (req.body) {
       OWNERSDETAILS.findOne({ _id: req.body.ownerId }, (err, result) => {

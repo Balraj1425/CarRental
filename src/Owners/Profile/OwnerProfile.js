@@ -6,22 +6,31 @@ import axios from "axios";
 
 const OwnerProfile = (props) => {
   const [ownerCarDetails, setOwnerCarDetails] = useState();
+  const [userProfileData, setUserProfileData] = useState();
+  const [refreshData, setRefreshData] = useState();
 
   useEffect(() => {
-    // console.log("****************")
-    // console.log(props)
-    // console.log(props.loggedInUserData._id)
-    axios
-      .post("http://localhost:3001/ownerprofilecardetails", {
-        ownerId: props.loggedInUserData._id,
-      })
+    axios.post("http://localhost:3001/ownerprofilecardetails", {ownerId: props.loggedInUserData._id})
       .then((res) => {
         console.log(res.data);
         if (res) {
           setOwnerCarDetails(res.data);
         }
       });
-  }, []);
+    axios.post("http://localhost:3001/userprofiledata", {ownerId: props.loggedInUserData._id})
+      .then((res) => {
+        console.log("//////////////////////////////////")
+        console.log(res.data);
+        if (res) {
+          setUserProfileData(res.data);
+        }
+        setRefreshData(false)
+      });
+  }, [refreshData]);
+
+  const updateHandler = (data) => {
+    setRefreshData(data)
+  }
 
   return (
     <>
@@ -30,15 +39,19 @@ const OwnerProfile = (props) => {
           <img src={Profilepic} alt="Profile pic" className="profilepic"></img>
         </div>
         <div className="NameDiv">
-          <strong>
-            <h2>{props.loggedInUserData.name}</h2>
-          </strong>
+          {userProfileData &&
+            <strong>
+              <h2>{userProfileData.name}</h2>
+            </strong>
+          }
         </div>
         <div className="accordian">
-          {ownerCarDetails && (
+          {userProfileData && ownerCarDetails && (
             <OtherDetails
               loggedInUserData={props.loggedInUserData}
               ownerCarDetails={ownerCarDetails}
+              userProfileData={userProfileData}
+              onUpdate={updateHandler}
             />
           )}
         </div>
