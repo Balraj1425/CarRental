@@ -589,7 +589,7 @@ app.put("/updateDetails/:id", async (req, res) => {
       { name: req.body.name, email: req.body.email, phone: req.body.phone },
       (err, result) => {
         if (result) {
-          // console.log("Result", result);
+          console.log("Result", result);
           res.send(result);
         }
       }
@@ -626,6 +626,24 @@ app.put("/changepassword/:id", async (req, res) => {
         }
       }
     );
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error in fetching profile data in catch" });
+  }
+});
+
+app.post("/ownerprofiledata", async (req, res) => {
+  try {
+    if (req.body) {
+      OWNERSDETAILS.findOne({ _id: req.body.ownerId }, (err, result) => {
+        if (result) {
+          res.status(200).send(result);
+        }
+      });
+    } else {
+      res.status(400).json({ message: "Error in fetching profile data" });
+    }
   } catch (error) {
     res
       .status(400)
