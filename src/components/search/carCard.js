@@ -15,7 +15,7 @@ const CarCard = (props) => {
     <Fragment>
       <div className="car-card">
         <div className="img-wrapper">
-          <img class="card-img-top" alt="card" src={props.carImage} />
+          <img className="card-img-top" alt="card" src={props.carImage} />
         </div>
         <div style={{ width: "65%" }}>
           <strong>{props.carName}</strong>

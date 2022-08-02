@@ -26,7 +26,7 @@ export default function Alllogin() {
               <div className="d-flex flex-column login-div">
                 <button
                   type="button"
-                  class="btn btn-warning mt-2"
+                  className="btn btn-warning mt-2"
                   onClick={navigatetoAdminLogin}
                 >
                   Admin
@@ -34,7 +34,7 @@ export default function Alllogin() {
 
                 <button
                   type="button"
-                  class="btn btn-warning"
+                  className="btn btn-warning"
                   onClick={navigatetoOwnerLogin}
                 >
                   Owner
@@ -42,7 +42,7 @@ export default function Alllogin() {
 
                 <button
                   type="button"
-                  class="btn btn-warning"
+                  className="btn btn-warning"
                   onClick={navigatetoUserLogin}
                 >
                   User

@@ -52,11 +52,11 @@ export default function SignUp() {
             </div>
           </div>
           <div className="col-sm-5 registerDiv">
-            <div class="card p-5">
+            <div className="card p-5">
               <h4 className="h4">Register Here</h4>
               <br></br>
-              <div class="mb-3">
-                <label for="formGroupName" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGroupName" className="form-label">
                   Name
                 </label>
                 <input
@@ -64,13 +64,13 @@ export default function SignUp() {
                   name="name"
                   value={register.name}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupExampleName"
                   placeholder="Enter your Name"
                 />
               </div>
-              <div class="mb-3">
-                <label for="formGroupusername" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGroupusername" className="form-label">
                   Email
                 </label>
                 <input
@@ -78,13 +78,13 @@ export default function SignUp() {
                   name="email"
                   value={register.email}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupusername"
                   placeholder="Enter your Email"
                 />
               </div>
-              <div class="mb-3">
-                <label for="formGroupphone" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGroupphone" className="form-label">
                   Mobile No
                 </label>
                 <input
@@ -92,14 +92,14 @@ export default function SignUp() {
                   name="phone"
                   value={register.phone}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupExamplePhone"
                   placeholder="Enter your Mobile No"
                 />
               </div>
 
-              <div class="mb-3">
-                <label for="formGrouppassword" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGrouppassword" className="form-label">
                   Password
                 </label>
                 <input
@@ -107,14 +107,14 @@ export default function SignUp() {
                   name="password"
                   value={register.password}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupExamplepassword"
                   placeholder="Enter your password"
                 />
               </div>
               <button
                 type="button"
-                class="btn btn-success"
+                className="btn btn-success"
                 onClick={registerOwner}
               >
                 Register

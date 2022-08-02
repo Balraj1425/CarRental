@@ -22,7 +22,11 @@ const SearchResult = (props) => {
   const [cartypes, setCarTypes] = useState();
 
   useEffect(() => {
-    const filterData = {seats: seats, transmission: transmission, cartypes: cartypes};
+    const filterData = {
+      seats: seats,
+      transmission: transmission,
+      cartypes: cartypes,
+    };
     const filterParameters = { ...filterData, ...searchCarData };
     axios
       .post("http://localhost:3001/filterdata", filterParameters)
@@ -49,7 +53,7 @@ const SearchResult = (props) => {
         <div className="row">
           <div className="col-lg-3 col-md-6 col-sm-12 mt-2">
             <div className="card filter-card ">
-              <label htmlFor="searchText" class="form-label ">
+              <label htmlFor="searchText" className="form-label ">
                 Car Types:
               </label>
               <ToggleButtonGroup
@@ -63,7 +67,7 @@ const SearchResult = (props) => {
                 <ToggleButton value="suv">SUV</ToggleButton>
                 <ToggleButton value="sedan">Sedan</ToggleButton>
               </ToggleButtonGroup>
-              <label htmlFor="searchText" class="form-label">
+              <label htmlFor="searchText" className="form-label">
                 Seats :
               </label>
               <ToggleButtonGroup
@@ -77,7 +81,7 @@ const SearchResult = (props) => {
                 <ToggleButton value="6">6</ToggleButton>
                 <ToggleButton value="7">7</ToggleButton>
               </ToggleButtonGroup>
-              <label htmlFor="searchText" class="form-label">
+              <label htmlFor="searchText" className="form-label">
                 Transmission:
               </label>
               <ToggleButtonGroup

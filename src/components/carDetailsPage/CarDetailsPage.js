@@ -27,7 +27,7 @@ export default function CarDetailsPage(props) {
               <div className="d-flex">
                 <div className="img-wrapper">
                   <img
-                    class="card-img-top"
+                    className="card-img-top"
                     alt="card"
                     src={state.props.carImage}
                   />
@@ -143,7 +143,7 @@ export default function CarDetailsPage(props) {
                       Agreement with Host
                     </div>
                     <div className="aggrement-Checkbox">
-                      <div class="form-check">
+                      <div className="form-check">
                         <input
                           className="form-check-input"
                           type="checkbox"
@@ -202,8 +202,8 @@ export default function CarDetailsPage(props) {
                   </div>
                   <span className="payment-amount5">₹2,201</span>
                 </div>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <button class="btn btn-primary mb-2" type="button">
+                <div className="d-grid gap-2 col-6 mx-auto">
+                  <button className="btn btn-primary mb-2" type="button">
                     Proceed To Pay
                   </button>
                 </div>

@@ -23,18 +23,23 @@ const SearchCar = () => {
 
   const searchCarHandler = (e) => {
     e.preventDefault();
-    if(searchCarData.datefrom == "" || searchCarData.dateto == "" || searchCarData.pickuplocation == ""){
-      alert("please enter all details")
-    }else{
+    if (
+      searchCarData.datefrom == "" ||
+      searchCarData.dateto == "" ||
+      searchCarData.pickuplocation == ""
+    ) {
+      alert("please enter all details");
+    } else {
       searchCarData.pickuplocation = searchCarData.pickuplocation.toUpperCase();
       axios
-      .post("http://localhost:3001/searchCars", searchCarData)
-      .then((res) => {
-        // navigate("/searchResult");
-        console.log(res.data);
-        setResultCarData(res.data);
-        setShowResult(true);
-        }).catch(err => {
+        .post("http://localhost:3001/searchCars", searchCarData)
+        .then((res) => {
+          // navigate("/searchResult");
+          console.log(res.data);
+          setResultCarData(res.data);
+          setShowResult(true);
+        })
+        .catch((err) => {
           // Handle error
           console.log(err);
           navigate("/login");
@@ -49,34 +54,34 @@ const SearchCar = () => {
     <Fragment>
       {!showResult && (
         <div className="search-car">
-          <label htmlFor="searchText" class="form-label">
+          <label htmlFor="searchText" className="form-label">
             Select Destination
           </label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             placeholder="Pick a city"
             id="searchText"
             value={searchCarData.pickuplocation}
             name="pickuplocation"
             onChange={handelChange}
           />
-          <label htmlFor="searchText" class="form-label">
+          <label htmlFor="searchText" className="form-label">
             From:
           </label>
           <input
             type="date"
-            class="form-control"
+            className="form-control"
             value={searchCarData.datefrom}
             name="datefrom"
             onChange={handelChange}
           />
-          <label htmlFor="searchText" class="form-label">
+          <label htmlFor="searchText" className="form-label">
             To:
           </label>
           <input
             type="date"
-            class="form-control"
+            className="form-control"
             value={searchCarData.dateto}
             name="dateto"
             onChange={handelChange}

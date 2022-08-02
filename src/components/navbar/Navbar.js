@@ -6,19 +6,19 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar(props) {
   const navigate = useNavigate();
-  console.log("nav loaded")
+  console.log("nav loaded");
   useEffect(() => {
     console.log(props);
-  }, [props])
+  }, [props]);
 
   const logoutHandler = () => {
     props.onLogout(false);
-    if(props.userType == "owner"){
-      navigate("/ownerlogin")
+    if (props.userType == "owner") {
+      navigate("/ownerlogin");
     } else {
-      navigate("/login")
+      navigate("/login");
     }
-  }
+  };
 
   return (
     <>
@@ -45,7 +45,11 @@ export default function Navbar(props) {
                   <Link
                     className="nav-link active"
                     aria-current="page"
-                    to="/home"
+                    to={
+                      props.isLoggedIn && props.userType == "owner"
+                        ? "/ownerhome"
+                        : "/home"
+                    }
                   >
                     <span className="navbar-textcolor "> Home</span>
                   </Link>
@@ -77,7 +81,12 @@ export default function Navbar(props) {
               )}
               {props.isLoggedIn && (
                 <li className="nav-item">
-                    <span className="nav-link navbar-textcolor" onClick={logoutHandler}>LogOut</span>
+                  <span
+                    className="nav-link navbar-textcolor"
+                    onClick={logoutHandler}
+                  >
+                    LogOut
+                  </span>
                 </li>
               )}
             </ul>

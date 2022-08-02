@@ -216,13 +216,7 @@ export default function OtherDetails(props) {
                 value={updateData.email}
                 onChange={handleChange2}
               />
-              <TextField
-                id="outlined-name"
-                label="password"
-                name="password"
-                value={updateData.password}
-                onChange={handleChange2}
-              />
+
               <Button
                 variant="contained"
                 color="success"

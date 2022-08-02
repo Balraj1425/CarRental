@@ -99,11 +99,11 @@ const OwnerHome = () => {
       <div className="container d-flex crowsel ">
         <div
           id="carouselExampleCaptions"
-          class="carousel slide "
+          className="carousel slide "
           data-bs-ride="carousel"
         >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
               <h3>Amit</h3>
               <br></br>
               <br></br>
@@ -114,7 +114,7 @@ const OwnerHome = () => {
                 repeat predefined chunks as necessary
               </h5>
             </div>
-            <div class="carousel-item">
+            <div className="carousel-item">
               <h3>Vineet</h3>
               <br></br>
               <br></br>
@@ -125,7 +125,7 @@ const OwnerHome = () => {
                 repeat predefined chunks as necessary
               </h5>
             </div>
-            <div class="carousel-item">
+            <div className="carousel-item">
               <h3>Balraj</h3>
               <br></br>
               <br></br>
@@ -139,12 +139,12 @@ const OwnerHome = () => {
           </div>
           <br></br>
           <br></br>
-          <div class="carousel-indicators">
+          <div className="carousel-indicators">
             <button
               type="button"
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="0"
-              class="active"
+              className="active"
               aria-current="true"
               aria-label="Slide 1"
             ></button>
@@ -162,22 +162,28 @@ const OwnerHome = () => {
             ></button>
           </div>
           <button
-            class="carousel-control-prev"
+            className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleCaptions"
             data-bs-slide="prev"
           >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden"></span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden"></span>
           </button>
           <button
-            class="carousel-control-next"
+            className="carousel-control-next"
             type="button"
             data-bs-target="#carouselExampleCaptions"
             data-bs-slide="next"
           >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden"></span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden"></span>
           </button>
         </div>
       </div>

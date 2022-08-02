@@ -558,11 +558,11 @@ app.post("/carmodels", async (req, res) => {
   }
 });
 
-//Owners Profile Data
+//Routes for Owners Profile Data
 
 app.post("/ownerprofilecardetails", async (req, res) => {
-  console.log("*************************************************************");
-  console.log(req.body);
+  // console.log("*************************************************************");
+  // console.log(req.body);
   try {
     CARDETAILS.find({ ownerId: req.body.ownerId }, (err, result) => {
       if (result) {
@@ -610,8 +610,8 @@ app.put("/changepassword/:id", async (req, res) => {
       .update(req.body.password)
       .digest("hex");
     // console.log("req.param", req.params);
-    console.log(id);
-    console.log(req.body.password);
+    // console.log(id);
+    // console.log(req.body.password);
 
     OWNERSDETAILS.findByIdAndUpdate(
       { _id: id },
@@ -619,7 +619,7 @@ app.put("/changepassword/:id", async (req, res) => {
       (err, result) => {
         if (result) {
           console.log(newPassword);
-          res.send("Data Updated");
+          res.status(200).json({ message: "Data Updated" });
         } else {
           console.log("error", newPassword);
           res.status(400).json({ message: "Error in fetching profile data" });

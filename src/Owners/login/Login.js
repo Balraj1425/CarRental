@@ -67,17 +67,17 @@ export default function Login(props) {
       <div className="container">
         <div className="row">
           <div className="col-sm-7">
-            <div class="card LoginPic">
-              <div class="card-body">
-                <img src={pic} class="img-size" alt="..." />
+            <div className="card LoginPic">
+              <div className="card-body">
+                <img src={pic} className="img-size" alt="..." />
               </div>
             </div>
           </div>
           <div className="col-sm-5">
-            <div class="card p-5">
+            <div className="card p-5">
               <br></br>
-              <div class="mb-3">
-                <label for="formGroupusername" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGroupusername" className="form-label">
                   Email
                 </label>
                 <input
@@ -85,14 +85,14 @@ export default function Login(props) {
                   name="email"
                   value={login.email}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupusername"
                   placeholder="Enter your Email"
                   required="required"
                 />
               </div>
-              <div class="mb-3">
-                <label for="formGrouppassword" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="formGrouppassword" className="form-label">
                   Password
                 </label>
                 <input
@@ -100,7 +100,7 @@ export default function Login(props) {
                   name="password"
                   value={login.password}
                   onChange={handelChange}
-                  class="form-control shadow-none"
+                  className="form-control shadow-none"
                   id="formGroupExamplepassword"
                   placeholder="Enter your password"
                 />
@@ -108,7 +108,7 @@ export default function Login(props) {
 
               <button
                 type="submit"
-                class="btn btn-success "
+                className="btn btn-success "
                 onClick={handelClick}
               >
                 Login
