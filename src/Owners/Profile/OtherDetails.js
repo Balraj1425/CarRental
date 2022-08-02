@@ -14,11 +14,12 @@ import axios from "axios";
 export default function OtherDetails(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [ownerCarData, setOwnerCarData] = useState();
+  const [userProfileData, setUserProfileData] = useState(props.userProfileData);
   // const [dataUpdated, setdataUpdated] = useState(false);
   const [updateData, setUpdateData] = useState({
-    name: props.loggedInUserData.name,
-    email: props.loggedInUserData.email,
-    phone: props.loggedInUserData.phone,
+    name: props.userProfileData.name,
+    email: props.userProfileData.email,
+    phone: props.userProfileData.phone,
   });
   const [changePassword, setchangePassword] = useState({ password: "" });
   // console.log("UpdatedData", updateData);
@@ -45,15 +46,17 @@ export default function OtherDetails(props) {
 
   useEffect(() => {
     setOwnerCarData(props.ownerCarDetails);
+    setUserProfileData(props.userProfileData);
   }, []);
 
   const UpdateOwnerData = () => {
     axios
       .put(
-        `http://localhost:3001/updateDetails/${props.loggedInUserData._id}`,
+        `http://localhost:3001/updateDetails/${props.userProfileData._id}`,
         updateData
       )
       .then((res) => {
+        props.onUpdate(true)
         // if (res) {
         //   setdataUpdated(true);
         // }
@@ -69,7 +72,7 @@ export default function OtherDetails(props) {
       } else {
         axios
           .put(
-            `http://localhost:3001/changepassword/${props.loggedInUserData._id}`,
+            `http://localhost:3001/changepassword/${props.userProfileData._id}`,
             changePassword
           )
           .then((res) => {
@@ -107,17 +110,17 @@ export default function OtherDetails(props) {
         <AccordionDetails>
           <Typography>
             <div className="card card-wrapper">
-              <span>FullName:&nbsp;&nbsp; {props.loggedInUserData.name}</span>
+              <span>FullName:&nbsp;&nbsp; {props.userProfileData.name}</span>
               <span>
                 Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {props.loggedInUserData.phone}
+                {props.userProfileData.phone}
               </span>
               <span>
                 Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {props.loggedInUserData.email}
+                {props.userProfileData.email}
               </span>
               <span>
-                OwnerId:&nbsp;&nbsp;&nbsp;{props.loggedInUserData._id}
+                OwnerId:&nbsp;&nbsp;&nbsp;{userProfileData._id}
               </span>
             </div>
           </Typography>
