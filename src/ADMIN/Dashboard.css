@@ -1,0 +1,14 @@
+.toggleDiv {
+  text-align: center;
+}
+.UserDetails {
+  font-weight: 900;
+  font-size: 20px;
+}
+.newCarDiv {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}

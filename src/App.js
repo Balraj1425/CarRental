@@ -6,7 +6,6 @@ import Login from "./components/login/Login";
 import OLogin from "../src/Owners/login/Login";
 import Aboutus from "./components/aboutus/Aboutus";
 import Contactus from "./components/contactus/Contactus";
-import Home from "./components/home/Home";
 import SearchResult from "./components/search/searchResult";
 import SearchCar from "./components/search/searchCar";
 import CarDetailsPage from "./components/carDetailsPage/CarDetailsPage";
@@ -16,6 +15,8 @@ import { useState } from "react";
 import OwnerHome from "./Owners/Home/OwnerHome";
 import OwnerRentData from "./Owners/OwnerRentData/OwnerRentData";
 import OwnerProfile from "./Owners/Profile/OwnerProfile";
+import Footer from "./components/Footer/Footer";
+import Dashboard from "./ADMIN/Dashboard";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,7 +70,9 @@ function App() {
             path="/ownerprofile"
             element={<OwnerProfile loggedInUserData={loggedInUserData} />}
           ></Route>
+          <Route path="/admindashboard" element={<Dashboard />}></Route>
         </Routes>
+        <Footer />
       </Router>
     </>
   );

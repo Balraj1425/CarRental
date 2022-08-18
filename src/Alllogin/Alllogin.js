@@ -16,7 +16,7 @@ export default function Alllogin() {
   };
   return (
     <>
-      <div className="container-fluid firstalllogindiv ">
+      <div className=" firstalllogindiv ">
         <div className="centered">
           <div className="card d-flex flex-row">
             <div className="col-sm-6">

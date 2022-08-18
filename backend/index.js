@@ -321,7 +321,7 @@ app.post("/contactus", async (req, res) => {
   }
 });
 
-app.get("/aboutus", async (req, res) => {
+app.get("/aboutus", authorization, async (req, res) => {
   try {
     console.log("Welcome to aboutus");
     console.log(req.cookies);
